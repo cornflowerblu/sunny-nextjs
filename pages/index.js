@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/layout"
 import { useCookies } from 'react-cookie'
 
-export default function Index({ epData, detData, cookie }) {
+export default function Index({ epData, cookie }) {
     const [cookies, setCookie, removeCookie] = useCookies(['_sunnysession']);
     setCookie(cookie)
 
@@ -12,8 +12,8 @@ export default function Index({ epData, detData, cookie }) {
     const Details = () => {
         return (
             <div>
-                <h3 className="display-6 pb-2">{detData.title}</h3>
-                <p className="lead fs-4">{detData.description}</p>
+                <h3 className="display-6 pb-2">{epData.title}</h3>
+                <p className="lead fs-4">{epData.description}</p>
             </div>
         )
     }
@@ -21,12 +21,12 @@ export default function Index({ epData, detData, cookie }) {
     return (
         <>
             <div className="mx-auto text-center">
-                <h1 className="display-6 pb-2">{epData.title}</h1>
+                <h1 className="display-6 pb-2">{epData.show_name}</h1>
                 <div className="d-flex align-items-center justify-content-center pb-2">
-                    <img src={epData.image} alt="It's Always Sunny in Philadelphia Cast Member" />
+                    <img src={epData.character_image} alt="It's Always Sunny in Philadelphia Cast Member" />
                 </div>
                 <div className="recommendation">
-                    <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{epData.name} says you should watch <br /> Season {epData.season}, Episode {epData.episode}.</p>
+                    <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{epData.character} says you should watch <br /> Season {epData.season_number}, Episode {epData.episode_number}.</p>
                     <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" href="/">Shuffle</a>
                         <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={onClick}>Details</a>
                     </div>
@@ -40,7 +40,7 @@ export default function Index({ epData, detData, cookie }) {
 
 
 export async function getServerSideProps({ req }) {
-    const epRes = await fetch('http://localhost:3001', {
+    const epRes = await fetch('http://localhost:3001/v2', {
         headers: {
             cookie: req.headers.cookie
         }
@@ -48,15 +48,7 @@ export async function getServerSideProps({ req }) {
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
 
-    const detRes = await fetch('http://localhost:3001/details', {
-        headers: {
-            cookie: cookie
-        }
-    })
-
-    const detData = await detRes.json()
-
-    return { props: { epData, detData, cookie } }
+    return { props: { epData, cookie } }
 }
 
 Index.getLayout = function getLayout(page) {
