@@ -4,7 +4,10 @@ import { useCookies } from 'react-cookie'
 
 export default function Index({ epData, cookie }) {
     const [cookies, setCookie, removeCookie] = useCookies(['_sunnysession']);
-    setCookie(cookie)
+
+    if (!cookies._sunnysession) {
+        setCookie(cookie)
+    }
 
     const [showDetails, setShowDetails] = React.useState(false)
     const onClick = () => showDetails ? setShowDetails(false) : setShowDetails(true)
