@@ -24,7 +24,7 @@ export default function Index({ epData, cookie }) {
     return (
         <>
             <div className="mx-auto text-center">
-                <h1 className="display-6 pb-2">{epData.show_name}</h1>
+                <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
                 <div className="d-flex align-items-center justify-content-center pb-2">
                     <img src={epData.character_image} alt="It's Always Sunny in Philadelphia Cast Member" />
                 </div>
@@ -43,7 +43,7 @@ export default function Index({ epData, cookie }) {
 
 
 export async function getServerSideProps({ req }) {
-    const epRes = await fetch('http://localhost:3001/v2', {
+    const epRes = await fetch('https://sunny.rurich.dev/v2', {
         headers: {
             cookie: req.headers.cookie
         }
