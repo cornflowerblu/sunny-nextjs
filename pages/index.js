@@ -1,6 +1,12 @@
 import Layout from "../components/layout"
+import { useCookies } from 'react-cookie'
+import { NextResponse } from 'next/server'
 
-export default function Index({ data }) {
+export default function Index({ data, cookie }) {
+    const [cookies, setCookie, removeCookie] = useCookies(['_sunnysession']);
+
+    setCookie(cookie)
+
     return (
         <>
             <div className="mx-auto text-center">
@@ -20,13 +26,16 @@ export default function Index({ data }) {
     )
 }
 
-export async function getServerSideProps() {
-    // Fetch data from external API
-    const res = await fetch(`http://localhost:3000`)
+export async function getServerSideProps({ req }) {
+    const res = await fetch('http://localhost:3000', {
+        headers: {
+            cookie: req.headers.cookie
+        }
+    })
     const data = await res.json()
+    const cookie = res.headers.get('set-cookie')
 
-    // Pass data to the page via props
-    return { props: { data } }
+    return { props: { data, cookie } }
 }
 
 Index.getLayout = function getLayout(page) {
