@@ -40,7 +40,7 @@ export default function Index({ epData, detData, cookie }) {
 
 
 export async function getServerSideProps({ req }) {
-    const epRes = await fetch('http://localhost:3000', {
+    const epRes = await fetch('http://localhost:3001', {
         headers: {
             cookie: req.headers.cookie
         }
@@ -48,9 +48,9 @@ export async function getServerSideProps({ req }) {
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
 
-    const detRes = await fetch('http://localhost:3000/details', {
+    const detRes = await fetch('http://localhost:3001/details', {
         headers: {
-            cookie: req.headers.cookie
+            cookie: cookie
         }
     })
 
