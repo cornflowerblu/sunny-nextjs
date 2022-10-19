@@ -45,7 +45,7 @@ export async function getStaticProps() {
     const epData = await epRes.json()
     // const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData, cookie }, revalidate: 1 }
+    return { props: { epData }, revalidate: 1 }
 }
 
 Index.getLayout = function getLayout(page) {
