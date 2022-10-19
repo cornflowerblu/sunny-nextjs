@@ -13,6 +13,11 @@ export default function Index({ data }) {
     const season_number = data.shows_by_pk.seasons_aggregate.nodes[0].season_number
     const { episode_number, title, description } = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
 
+    // Trigger the first refresh so we don't always get the first item in the array
+    useEffect(() => {
+        refreshPage()
+    }, [data])
+
     // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
     const [imageUrl, setImageUrl] = React.useState(image_url)
@@ -21,11 +26,6 @@ export default function Index({ data }) {
     const [episode, setEpisode] = React.useState(episode_number)
     const [episodeTitle, setEpisodeTitle] = React.useState(title)
     const [details, setDetails] = React.useState(description)
-
-    // Trigger the first refresh so we don't always get the first item in the array
-    useEffect(() => {
-        refreshPage()
-    }, [data])
 
     // The main function that shuffles characters, seasons, and episodes
     const refreshPage = () => {
