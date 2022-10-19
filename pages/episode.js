@@ -36,14 +36,13 @@ export default function Episode({ shows }) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const res = await fetch('http://localhost:3001/episode/v2')
 
     const shows = await res.json()
 
     return {
-        props: shows,
-        revalidate: 600
+        props: shows
     }
 }
 

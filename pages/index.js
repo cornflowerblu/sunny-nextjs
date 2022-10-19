@@ -1,37 +1,69 @@
 import React from "react";
 import Layout from "../components/layout"
-import { useCookies } from 'react-cookie'
 
-export default function Index({ epData, cookie }) {
-    const [cookies, setCookie, removeCookie] = useCookies(['_sunnysession']);
+export default function Index({ data }) {
+    
+    // A small function to generate a random number from anything that has a count
+    const getNumber = (max, min) =>
+    Math.floor(Math.random() * (max - 1) + min)
 
-    if (!cookies._sunnysession) {
-        setCookie(cookie)
-    }
+    // Set up initial values. These will always be the first item in the array.
+    const { first_name, image_url } = data.shows_by_pk.characters_aggregate.nodes[0]
+    const season_number = data.shows_by_pk.seasons_aggregate.nodes[0].season_number
+    const {episode_number, title, description} = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
 
+    // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
-    const onClick = () => showDetails ? setShowDetails(false) : setShowDetails(true)
+    const [imageUrl, setImageUrl] = React.useState(image_url)
+    const [name, setName] = React.useState(first_name)
+    const [season, setSeason] = React.useState(season_number)
+    const [episode, setEpisode] = React.useState(episode_number)
+    const [episodeTitle, setEpisodeTitle] = React.useState(title)
+    const [details, setDetails] = React.useState(description)
+    
+    // The main function that shuffles characters, seasons, and episodes
+    const refreshPage = () => {
+        const characterCount = data.shows_by_pk.characters_aggregate.aggregate.count
+        const characterNumber = getNumber(characterCount, 0)
+        const arr = data.shows_by_pk.characters_aggregate.nodes[characterNumber]
+        setImageUrl(arr.image_url)
+        setName(arr.first_name)
 
-    const Details = () => {
+        const seasonCount = data.shows_by_pk.seasons_aggregate.aggregate.count
+        const seasonNumber = getNumber(seasonCount, 1)
+        const seasonArr = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber]
+        setSeason(seasonArr.season_number)
+
+        const episodeCount = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate.aggregate.count
+        const episodeNumber = getNumber(episodeCount, 1)
+        const episodeArr = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate.nodes[episodeNumber]
+        setEpisode(episodeArr.episode_number)
+        setEpisodeTitle(episodeArr.title)
+        setDetails(episodeArr.description)
+      }
+
+      // Show or hide episode details
+      const Details = () => {
         return (
             <div>
-                <h3 className="display-6 pb-2">{epData.title}</h3>
-                <p className="lead fs-4">{epData.description}</p>
+                <h3 className="display-6 pb-2">{episodeTitle}</h3>
+                <p className="lead fs-4">{details}</p>
             </div>
         )
     }
+    const renderDetails = () => showDetails ? setShowDetails(false) : setShowDetails(true)
 
     return (
         <>
             <div className="mx-auto text-center">
                 <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
                 <div className="d-flex align-items-center justify-content-center pb-2">
-                    <img src={epData.character_image} alt="It's Always Sunny in Philadelphia Cast Member" />
+                    <img src={imageUrl} alt="It's Always Sunny in Philadelphia Cast Member" />
                 </div>
                 <div className="recommendation">
-                    <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{epData.character} says you should watch <br /> Season {epData.season_number}, Episode {epData.episode_number}.</p>
-                    <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" href="/">Shuffle</a>
-                        <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={onClick}>Details</a>
+                    <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{name} says you should watch <br /> Season {season}, Episode {episode}.</p>
+                    <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" onClick={refreshPage}>Shuffle</a>
+                        <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={renderDetails}>Details</a>
                     </div>
                     {showDetails ? <Details /> : null}
                 </div>
@@ -42,16 +74,17 @@ export default function Index({ epData, cookie }) {
 
 
 
-export async function getServerSideProps({ req }) {
-    const epRes = await fetch('https://sunny.rurich.dev/v2', {
+export async function getStaticProps() {
+
+    const res = await fetch(process.env.API_URL, {
         headers: {
-            cookie: req.headers.cookie
+            "x-hasura-admin-secret": process.env.GRAPHQL_SECRET
         }
     })
-    const epData = await epRes.json()
-    const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData, cookie } }
+    const data = await res.json()
+
+    return { props: { data }, revalidate: 300 }
 }
 
 Index.getLayout = function getLayout(page) {
