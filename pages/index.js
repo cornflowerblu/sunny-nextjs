@@ -2,12 +2,8 @@ import React from "react";
 import Layout from "../components/layout"
 import { useCookies } from 'react-cookie'
 
-export default function Index({ epData, cookie }) {
-    const [cookies, setCookie, removeCookie] = useCookies(['_sunnysession']);
-
-    if (!cookies._sunnysession) {
-        setCookie(cookie)
-    }
+export default function Index({ epData }) {
+    // const [cookies, setCookie, removeCookie] = useCookies(['_sunnysession']);
 
     const [showDetails, setShowDetails] = React.useState(false)
     const onClick = () => showDetails ? setShowDetails(false) : setShowDetails(true)
@@ -44,17 +40,7 @@ export default function Index({ epData, cookie }) {
 
 export async function getStaticProps({ req }) {
 
-    let epRes;
-
-    if (req?.headers) {
-        epRes = await fetch('https://sunny.rurich.dev/v2', {
-            headers: {
-                cookie: req.headers.cookie
-            }
-        })        
-    } else {
-        epRes = await fetch('https://sunny.rurich.dev/v2')
-    }
+    const epRes = await fetch('https://sunny.rurich.dev/v2')
 
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
