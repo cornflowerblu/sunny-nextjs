@@ -17,6 +17,10 @@ export default function Index({ epData }) {
         )
     }
 
+    const refreshPage = () => {
+        window.location.reload(false);
+      }
+
     return (
         <>
             <div className="mx-auto text-center">
@@ -26,7 +30,7 @@ export default function Index({ epData }) {
                 </div>
                 <div className="recommendation">
                     <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{epData.character} says you should watch <br /> Season {epData.season_number}, Episode {epData.episode_number}.</p>
-                    <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" href="/">Shuffle</a>
+                    <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" onClick={refreshPage}>Shuffle</a>
                         <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={onClick}>Details</a>
                     </div>
                     {showDetails ? <Details /> : null}
@@ -45,7 +49,7 @@ export async function getStaticProps() {
     const epData = await epRes.json()
     // const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData }, revalidate: 1 }
+    return { props: { epData }, revalidate: true }
 }
 
 Index.getLayout = function getLayout(page) {
