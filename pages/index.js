@@ -46,7 +46,7 @@ export async function getStaticProps({ req }) {
 
     let epRes;
 
-    if (req) {
+    if (req?.headers) {
         epRes = await fetch('https://sunny.rurich.dev/v2', {
             headers: {
                 cookie: req.headers.cookie
@@ -59,7 +59,7 @@ export async function getStaticProps({ req }) {
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData, cookie }, revalidate: 1 }
+    return { props: { epData, cookie } }
 }
 
 Index.getLayout = function getLayout(page) {
