@@ -43,7 +43,7 @@ export async function getStaticProps() {
     const epRes = await fetch('https://sunny.rurich.dev/v2')
 
     const epData = await epRes.json()
-    const cookie = epRes.headers.get('set-cookie')
+    // const cookie = epRes.headers.get('set-cookie')
 
     return { props: { epData, cookie }, revalidate: 1 }
 }
