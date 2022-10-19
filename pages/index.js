@@ -15,7 +15,7 @@ export default function Index({ data }) {
 
     // Trigger the first refresh so we don't always get the first item in the array
     const [isRefreshed, setRefresh] = React.useState(null);
-    const refresh = useEffect(() => {
+    useEffect(() => {
         refreshPage()
         setRefresh(true)
     }, [data])
