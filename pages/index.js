@@ -20,8 +20,6 @@ export default function Index({ data }) {
         setRefresh(true)
     }, [data])
 
-    console.log(refresh);
-
     // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
     const [imageUrl, setImageUrl] = React.useState(image_url)
