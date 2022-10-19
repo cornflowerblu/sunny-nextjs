@@ -59,7 +59,7 @@ export async function getStaticProps({ req }) {
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData, cookie, fallback: 'blocking' }, revalidate: 1 }
+    return { props: { epData, cookie }, revalidate: 1 }
 }
 
 Index.getLayout = function getLayout(page) {
