@@ -38,14 +38,14 @@ export default function Index({ epData }) {
 
 
 
-export async function getStaticProps({ req }) {
+export async function getStaticProps() {
 
     const epRes = await fetch('https://sunny.rurich.dev/v2')
 
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData, cookie }, revalidate: true }
+    return { props: { epData, cookie }, revalidate: 1 }
 }
 
 Index.getLayout = function getLayout(page) {
