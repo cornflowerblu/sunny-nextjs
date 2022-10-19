@@ -7,27 +7,14 @@ export default function Index({ data }) {
     const getNumber = (max, min) =>
         Math.floor(Math.random() * (max - 1) + min)
 
-
-    // Set up initial values. These will always be the first item in the array.
-    const { first_name, image_url } = data.shows_by_pk.characters_aggregate.nodes[0]
-    const season_number = data.shows_by_pk.seasons_aggregate.nodes[0].season_number
-    const { episode_number, title, description } = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
-
-    // Trigger the first refresh so we don't always get the first item in the array
-    const [isRefreshed, setRefresh] = React.useState(null);
-    useEffect(() => {
-        refreshPage()
-        setRefresh(true)
-    }, [data])
-
     // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
-    const [imageUrl, setImageUrl] = React.useState(image_url)
-    const [name, setName] = React.useState(first_name)
-    const [season, setSeason] = React.useState(season_number)
-    const [episode, setEpisode] = React.useState(episode_number)
-    const [episodeTitle, setEpisodeTitle] = React.useState(title)
-    const [details, setDetails] = React.useState(description)
+    const [imageUrl, setImageUrl] = React.useState('')
+    const [name, setName] = React.useState('')
+    const [season, setSeason] = React.useState('')
+    const [episode, setEpisode] = React.useState('')
+    const [episodeTitle, setEpisodeTitle] = React.useState('')
+    const [details, setDetails] = React.useState('')
 
     // The main function that shuffles characters, seasons, and episodes
     const refreshPage = () => {
@@ -49,6 +36,13 @@ export default function Index({ data }) {
         setEpisodeTitle(episodeArr.title)
         setDetails(episodeArr.description)
     }
+
+    // Trigger the first refresh and populate the data
+    const [isRefreshed, setRefresh] = React.useState(null);
+    useEffect(() => {
+        refreshPage()
+        setRefresh(true)
+    }, [data])
 
     // Show or hide episode details
     const Details = () => {
