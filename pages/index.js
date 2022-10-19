@@ -42,16 +42,24 @@ export default function Index({ epData, cookie }) {
 
 
 
-export async function getServerSideProps({ req }) {
-    const epRes = await fetch('https://sunny.rurich.dev/v2', {
-        headers: {
-            cookie: req.headers.cookie
-        }
-    })
+export async function getStaticProps({ req }) {
+
+    let epRes;
+
+    if (req) {
+        epRes = await fetch('https://sunny.rurich.dev/v2', {
+            headers: {
+                cookie: req.headers.cookie
+            }
+        })        
+    } else {
+        epRes = await fetch('https://sunny.rurich.dev/v2')
+    }
+
     const epData = await epRes.json()
     const cookie = epRes.headers.get('set-cookie')
 
-    return { props: { epData, cookie } }
+    return { props: { epData, cookie }, revalidate: 1 }
 }
 
 Index.getLayout = function getLayout(page) {
