@@ -2,13 +2,17 @@ import React from "react";
 import Layout from "../components/layout"
 
 export default function Index({ data }) {
+    
+    // A small function to generate a random number from anything that has a count
     const getNumber = (max, min) =>
     Math.floor(Math.random() * (max - 1) + min)
 
+    // Set up initial values. These will always be the first item in the array.
     const { first_name, image_url } = data.shows_by_pk.characters_aggregate.nodes[0]
     const season_number = data.shows_by_pk.seasons_aggregate.nodes[0].season_number
     const {episode_number, title, description} = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
 
+    // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
     const [imageUrl, setImageUrl] = React.useState(image_url)
     const [name, setName] = React.useState(first_name)
@@ -17,17 +21,7 @@ export default function Index({ data }) {
     const [episodeTitle, setEpisodeTitle] = React.useState(title)
     const [details, setDetails] = React.useState(description)
     
-    const onClick = () => showDetails ? setShowDetails(false) : setShowDetails(true)
-
-    const Details = () => {
-        return (
-            <div>
-                <h3 className="display-6 pb-2">{episodeTitle}</h3>
-                <p className="lead fs-4">{details}</p>
-            </div>
-        )
-    }
-
+    // The main function that shuffles characters, seasons, and episodes
     const refreshPage = () => {
         const characterCount = data.shows_by_pk.characters_aggregate.aggregate.count
         const characterNumber = getNumber(characterCount, 0)
@@ -48,6 +42,17 @@ export default function Index({ data }) {
         setDetails(episodeArr.description)
       }
 
+      // Show or hide episode details
+      const Details = () => {
+        return (
+            <div>
+                <h3 className="display-6 pb-2">{episodeTitle}</h3>
+                <p className="lead fs-4">{details}</p>
+            </div>
+        )
+    }
+    const renderDetails = () => showDetails ? setShowDetails(false) : setShowDetails(true)
+
     return (
         <>
             <div className="mx-auto text-center">
@@ -58,7 +63,7 @@ export default function Index({ data }) {
                 <div className="recommendation">
                     <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{name} says you should watch <br /> Season {season}, Episode {episode}.</p>
                     <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" onClick={refreshPage}>Shuffle</a>
-                        <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={onClick}>Details</a>
+                        <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={renderDetails}>Details</a>
                     </div>
                     {showDetails ? <Details /> : null}
                 </div>
