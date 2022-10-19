@@ -39,7 +39,6 @@ export default function Index({ data }) {
         const seasonNumber = getNumber(seasonCount, 1)
         const seasonArr = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber]
         setSeason(seasonArr.season_number)
-        console.log(seasonArr.id)
 
         const episodeCount = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate.aggregate.count
         const episodeNumber = getNumber(episodeCount, 1)
@@ -47,7 +46,6 @@ export default function Index({ data }) {
         setEpisode(episodeArr.episode_number)
         setEpisodeTitle(episodeArr.title)
         setDetails(episodeArr.description)
-        console.log(episodeCount)
       }
 
     return (
