@@ -1,27 +1,28 @@
 import React from "react";
 import Layout from "../components/layout"
-import { useCookies } from 'react-cookie'
 
 export default function Index({ data }) {
     const getNumber = (max, min) =>
     Math.floor(Math.random() * (max - 1) + min)
 
     const { first_name, image_url } = data.shows_by_pk.characters_aggregate.nodes[0]
+    const season_number = data.shows_by_pk.seasons_aggregate.nodes[0].season_number
+    const {episode_number, title, description} = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
 
     const [showDetails, setShowDetails] = React.useState(false)
     const [imageUrl, setImageUrl] = React.useState(image_url)
     const [name, setName] = React.useState(first_name)
-    const [season, setSeason] = React.useState(false)
-    const [episode, setEpisode] = React.useState(false)
-    const [title, setTitle] = React.useState(false)
-    const [details, setDetails] = React.useState(false)
+    const [season, setSeason] = React.useState(season_number)
+    const [episode, setEpisode] = React.useState(episode_number)
+    const [episodeTitle, setEpisodeTitle] = React.useState(title)
+    const [details, setDetails] = React.useState(description)
     
     const onClick = () => showDetails ? setShowDetails(false) : setShowDetails(true)
 
     const Details = () => {
         return (
             <div>
-                <h3 className="display-6 pb-2">{title}</h3>
+                <h3 className="display-6 pb-2">{episodeTitle}</h3>
                 <p className="lead fs-4">{details}</p>
             </div>
         )
@@ -44,7 +45,7 @@ export default function Index({ data }) {
         const episodeNumber = getNumber(episodeCount, 1)
         const episodeArr = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate.nodes[episodeNumber]
         setEpisode(episodeArr.episode_number)
-        setTitle(episodeArr.title)
+        setEpisodeTitle(episodeArr.title)
         setDetails(episodeArr.description)
         console.log(episodeCount)
       }
@@ -72,7 +73,11 @@ export default function Index({ data }) {
 
 export async function getStaticProps() {
 
-    const res = await fetch('http://localhost:8080/api/rest/show/950e38a3-3242-44dc-8585-fd30ced6627e')
+    const res = await fetch(process.env.API_URL, {
+        headers: {
+            "x-hasura-admin-secret": process.env.GRAPHQL_SECRET
+        }
+    })
 
     const data = await res.json()
 
