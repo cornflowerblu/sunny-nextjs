@@ -14,9 +14,13 @@ export default function Index({ data }) {
     const { episode_number, title, description } = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
 
     // Trigger the first refresh so we don't always get the first item in the array
-    useEffect(() => {
+    const [isRefreshed, setRefresh] = React.useState(null);
+    const refresh = useEffect(() => {
         refreshPage()
+        setRefresh(true)
     }, [data])
+
+    console.log(refresh);
 
     // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
@@ -59,23 +63,25 @@ export default function Index({ data }) {
     }
     const renderDetails = () => showDetails ? setShowDetails(false) : setShowDetails(true)
 
-    return (
-        <>
-            <div className="mx-auto text-center">
-                <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
-                <div className="d-flex align-items-center justify-content-center pb-2">
-                    <img src={imageUrl} alt="It's Always Sunny in Philadelphia Cast Member" />
-                </div>
-                <div className="recommendation">
-                    <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{name} says you should watch <br /> Season {season}, Episode {episode}.</p>
-                    <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" onClick={refreshPage}>Shuffle</a>
-                        <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={renderDetails}>Details</a>
+    if (isRefreshed) {
+        return (
+            <>
+                <div className="mx-auto text-center">
+                    <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
+                    <div className="d-flex align-items-center justify-content-center pb-2">
+                        <img src={imageUrl} alt="It's Always Sunny in Philadelphia Cast Member" />
                     </div>
-                    {showDetails ? <Details /> : null}
+                    <div className="recommendation">
+                        <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">{name} says you should watch <br /> Season {season}, Episode {episode}.</p>
+                        <div className="d-flex flex-row" style={{ marginBottom: "3rem" }}><a className="btn btn-primary btn-lg w-50 mt-3 me-2" onClick={refreshPage}>Shuffle</a>
+                            <a className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2" onClick={renderDetails}>Details</a>
+                        </div>
+                        {showDetails ? <Details /> : null}
+                    </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    }
 }
 
 
