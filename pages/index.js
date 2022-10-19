@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/layout"
 
 export default function Index({ data }) {
-    
+
     // A small function to generate a random number from anything that has a count
     const getNumber = (max, min) =>
-    Math.floor(Math.random() * (max - 1) + min)
+        Math.floor(Math.random() * (max - 1) + min)
+
 
     // Set up initial values. These will always be the first item in the array.
     const { first_name, image_url } = data.shows_by_pk.characters_aggregate.nodes[0]
     const season_number = data.shows_by_pk.seasons_aggregate.nodes[0].season_number
-    const {episode_number, title, description} = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
+    const { episode_number, title, description } = data.shows_by_pk.seasons_aggregate.nodes[0].episodes_aggregate.nodes[0]
 
     // Set up state
     const [showDetails, setShowDetails] = React.useState(false)
@@ -20,7 +21,12 @@ export default function Index({ data }) {
     const [episode, setEpisode] = React.useState(episode_number)
     const [episodeTitle, setEpisodeTitle] = React.useState(title)
     const [details, setDetails] = React.useState(description)
-    
+
+    // Trigger the first refresh so we don't always get the first item in the array
+    useEffect(() => {
+        refreshPage()
+    }, [data])
+
     // The main function that shuffles characters, seasons, and episodes
     const refreshPage = () => {
         const characterCount = data.shows_by_pk.characters_aggregate.aggregate.count
@@ -40,10 +46,10 @@ export default function Index({ data }) {
         setEpisode(episodeArr.episode_number)
         setEpisodeTitle(episodeArr.title)
         setDetails(episodeArr.description)
-      }
+    }
 
-      // Show or hide episode details
-      const Details = () => {
+    // Show or hide episode details
+    const Details = () => {
         return (
             <div>
                 <h3 className="display-6 pb-2">{episodeTitle}</h3>
