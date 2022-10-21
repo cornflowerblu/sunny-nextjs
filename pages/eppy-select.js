@@ -1,6 +1,29 @@
+import React from 'react'
 import Layout from "../components/layout"
 
 export default function SelectEpisode() {
+
+const [ episodeId, showEpisodeId ] = React.useState(false)
+const Episode = () => {
+    return (
+        <div className="form-group pb-4">
+        <h2 className="display-6 fs-2"></h2>
+        <label>Episode ID</label>
+        <input
+          className="form-control"
+          type="text"
+          name="id"
+          id="id"
+          value=''
+          readonly
+          disabled
+          style={{cursor: "notAllowed"}}
+        ></input>
+      </div>       
+    )
+}
+const showEpisode = () => showEpisodeId(true)
+
 return(
   <div className="container-fluid">
     <div className="row pb-4">
@@ -21,28 +44,14 @@ return(
       </div>
       <div className="col">
         <form id="selectEpisode" method="POST">
-          <select id="episodePicker" class="form-select w-100">
+          <select id="episodePicker" class="form-select w-100" onChange={showEpisode}>
             <option value=""> Select a show to see episodes</option>
+            <option value="234"> A Change</option>
           </select>
         </form>
       </div>
     </div>
-    <div className="row">
-      <div className="form-group pb-4">
-        <h2 className="display-6 fs-2"></h2>
-        <label> Episode ID</label>
-        <input
-          className="form-control"
-          type="text"
-          name="id"
-          id="id"
-          value=''
-          readonly
-          disabled
-          style={{cursor: "notAllowed"}}
-        ></input>
-      </div>
-    </div>
+    {episodeId ? <Episode /> : null}
   </div>
 )}
 
