@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 
 export default function SelectEpisode() {
 
-const [ episodeId, showEpisodeId ] = React.useState(false)
+const [ episodeId, setEpisodeId ] = React.useState(false)
 const Episode = () => {
     return (
         <div className="form-group pb-4">
@@ -22,7 +22,7 @@ const Episode = () => {
       </div>       
     )
 }
-const showEpisode = () => showEpisodeId(true)
+const showEpisode = () => setEpisodeId(true)
 
 return(
   <div className="container-fluid">
