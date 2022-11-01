@@ -11,7 +11,7 @@ export default function Document() {
           crossOrigin="anonymous"
         />
       </Head>
-      <body className="container mt-3" style={{ backgroundColor: "#eeeeeee0" }}>
+      <body className="container mt-3" style={{ backgroundColor: '#eeeeeee0' }}>
         <Main />
         <NextScript />
         <script
@@ -21,5 +21,5 @@ export default function Document() {
         ></script>
       </body>
     </Html>
-  );
+  )
 }

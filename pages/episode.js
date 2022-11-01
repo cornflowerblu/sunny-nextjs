@@ -1,9 +1,9 @@
-import EpisodeEntry from "../components/episode-entry";
-import Layout from "../components/layout";
+import EpisodeEntry from '../components/episode-entry'
+import Layout from '../components/layout'
 
 export default function Episode({ shows }) {
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const data = {
       show_id: event.target.show_id.value,
@@ -11,37 +11,37 @@ export default function Episode({ shows }) {
       episode_number: event.target.episode_number.value,
       title: event.target.title.value,
       description: event.target.description.value,
-    };
-    const JSONdata = JSON.stringify(data);
+    }
+    const JSONdata = JSON.stringify(data)
 
-    const endpoint = "http://localhost:3001/episode/new";
+    const endpoint = 'http://localhost:3001/episode/new'
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSONdata,
-    };
+    }
 
-    const response = await fetch(endpoint, options);
+    const response = await fetch(endpoint, options)
 
-    const result = await response.json();
-    alert(`It worked submitting: ${result.data}`);
-  };
-  return <EpisodeEntry handler={handleSubmit} shows={shows} />;
+    const result = await response.json()
+    alert(`It worked submitting: ${result.data}`)
+  }
+  return <EpisodeEntry handler={handleSubmit} shows={shows} />
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3001/episode/v2");
+  const res = await fetch('http://localhost:3001/episode/v2')
 
-  const shows = await res.json();
+  const shows = await res.json()
 
   return {
     props: shows,
-  };
+  }
 }
 
 Episode.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};
+  return <Layout>{page}</Layout>
+}
