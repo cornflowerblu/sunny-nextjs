@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import Layout from "../components/layout";
+import React, { useEffect } from 'react'
+import Layout from '../components/layout'
 
 export default function SelectEpisode({ shows }) {
-  const [episodeId, setEpisodeId] = React.useState(false);
+  const [episodeId, setEpisodeId] = React.useState(false)
   const Episode = () => {
     return (
       <div className="form-group pb-4">
@@ -16,28 +16,28 @@ export default function SelectEpisode({ shows }) {
           value=""
           readOnly
           disabled
-          style={{ cursor: "notAllowed" }}
+          style={{ cursor: 'notAllowed' }}
         ></input>
       </div>
-    );
-  };
+    )
+  }
 
-  const [show, setShow] = React.useState();
-  const [season, setSeason] = React.useState();
+  const [show, setShow] = React.useState()
+  const [season, setSeason] = React.useState()
 
   const filterEpisodes = (seasonId) => {
     const selectedSeason = shows.seasons_aggregate.nodes.filter(
-      (season) => season.id === seasonId
-    );
-    const episodeList = [selectedSeason[0].episodes_aggregate.nodes];
+      (season) => season.id === seasonId,
+    )
+    const episodeList = [selectedSeason[0].episodes_aggregate.nodes]
     return episodeList.map((episode) =>
       episode.map((ep) => (
         <option key={ep.id} value={ep.id}>
           Episode {ep.episode_number}: {ep.title}
         </option>
-      ))
-    );
-  };
+      )),
+    )
+  }
 
   return (
     <div className="container-fluid">
@@ -52,8 +52,8 @@ export default function SelectEpisode({ shows }) {
             >
               <option value=""> Select a Show </option>
               <option value="950e38a3-3242-44dc-8585-fd30ced6627e">
-                {" "}
-                It's Always Sunny in Philadelphia{" "}
+                {' '}
+                It's Always Sunny in Philadelphia{' '}
               </option>
             </select>
           </form>
@@ -91,23 +91,23 @@ export default function SelectEpisode({ shows }) {
       </div>
       {episodeId ? <Episode /> : null}
     </div>
-  );
+  )
 }
 
 export async function getStaticProps() {
   const res = await fetch(process.env.API_URL, {
     headers: {
-      "x-hasura-admin-secret": process.env.GRAPHQL_SECRET,
+      'x-hasura-admin-secret': process.env.GRAPHQL_SECRET,
     },
-  });
+  })
 
-  const rawData = await res.json();
+  const rawData = await res.json()
 
-  const shows = rawData.shows_by_pk;
+  const shows = rawData.shows_by_pk
 
-  return { props: { shows }, revalidate: 300 };
+  return { props: { shows }, revalidate: 300 }
 }
 
 SelectEpisode.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};
+  return <Layout>{page}</Layout>
+}
