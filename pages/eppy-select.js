@@ -84,12 +84,12 @@ export default function SelectEpisode({ shows }) {
               onChange={(e) => setEpisodeId(e.currentTarget.value)}
             >
               <option value=""> Select a season to see episodes</option>
-              {season ? filterEpisodes(season) : null}
+              {show && season ? filterEpisodes(season) : null}
             </select>
           </form>
         </div>
       </div>
-      {episodeId ? <Episode /> : null}
+      {show && season && episodeId ? <Episode /> : null}
     </div>
   )
 }
@@ -97,7 +97,7 @@ export default function SelectEpisode({ shows }) {
 export async function getStaticProps() {
   const res = await fetch(process.env.API_URL, {
     headers: {
-      'x-hasura-admin-secret': process.env.GRAPHQL_SECRET,
+      'hasura_api_key': process.env.AUTH_HOOK_API_KEY,
     },
   })
 
