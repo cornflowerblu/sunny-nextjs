@@ -47,14 +47,36 @@ function EpisodeEntry({ shows }) {
     })
   }
 
+  const episodeEntry = (
+    <h1 className="display-6">
+      Episode Entry /
+      <Link href={'/eppy-select'}>
+        <a className="text-decoration-none"> Edit a Show</a>
+      </Link>
+    </h1>
+  )
+
+  const ShowTitle = () => {
+    if (typeof window == 'undefined') {
+      return episodeEntry
+    }
+    if (window.location.href.includes('eppy-select')) {
+      return (
+        <h1 className="display-6">
+          <Link href={'/episode'}>
+            <a className="text-decoration-none"> Episode Entry </a>
+          </Link>
+          / Edit a show
+        </h1>
+      )
+    } else {
+      return episodeEntry
+    }
+  }
+
   return (
     <>
-      <h1 className="display-6">
-        Episode Entry /
-        <Link href={'/eppy-select'}>
-          <a className="text-decoration-none"> Edit a Show</a>
-        </Link>
-      </h1>
+      <ShowTitle />
       <form className="was-validated" onSubmit={handleSubmit}>
         <div className="row">
           <div className="form-group col-6 mb-3">
