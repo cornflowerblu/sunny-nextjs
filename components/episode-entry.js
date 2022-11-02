@@ -1,9 +1,14 @@
+import React from "react";
 
-function EpisodeEntry({ shows }, handler) {
+function EpisodeEntry({ shows }) {
+
+    const [ episode, setEpisode ] = React.useState(false)
+    const [ data, setData ] = React.useState(false)
+
     return (
         <>
             <h1 className="display-6">Episode Entry /<a className="text-decoration-none" href="/episode/edit"> Edit a Show</a></h1>
-            <form className="was-validated" onSubmit={handler}>
+            <form className="was-validated">
                 <div className="row">
                     <div className="form-group col-6 mb-3"><label>Select a Show</label>
                         <select className="form-select" name="show_id" id="show_id" required="required">

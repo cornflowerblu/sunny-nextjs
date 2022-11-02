@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
+import EpisodeEntry from '../components/episode-entry'
 import Layout from '../components/layout'
 
 export default function SelectEpisode({ shows }) {
-  const [episodeId, setEpisodeId] = React.useState(false)
+  const [episodeId, setEpisodeId] = React.useState(false)    
+
   const Episode = () => {
     return (
+      <>
       <div className="form-group pb-4">
         <h2 className="display-6 fs-2"></h2>
         <label>Episode ID</label>
@@ -13,12 +16,15 @@ export default function SelectEpisode({ shows }) {
           type="text"
           name="id"
           id="id"
-          value=""
+          value={episodeId}
           readOnly
           disabled
           style={{ cursor: 'notAllowed' }}
         ></input>
       </div>
+      {/* NEED TO REMEMBER TO UN HARD CODE THIS */}
+      <EpisodeEntry shows={[{id: show, show_name: "It's Always Sunny in Philadelphia"}]} />
+      </>
     )
   }
 
@@ -111,3 +117,4 @@ export async function getStaticProps() {
 SelectEpisode.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
 }
+
