@@ -47,18 +47,20 @@ function EpisodeEntry({ shows }) {
     })
   }
 
-  const episodeEntry = (
-    <h1 className="display-6">
-      Episode Entry /
-      <Link href={'/eppy-select'}>
-        <a className="text-decoration-none"> Edit a Show</a>
-      </Link>
-    </h1>
-  )
+  const EpisodeTitle = () => {
+    return (
+      <h1 className="display-6">
+        Episode Entry /
+        <Link href={'/eppy-select'}>
+          <a className="text-decoration-none"> Edit a Show</a>
+        </Link>
+      </h1>
+    )
+  }
 
-  const ShowTitle = () => {
+  const EpisodeEntryTitle = () => {
     if (typeof window == 'undefined') {
-      return episodeEntry
+      return <EpisodeTitle />
     }
     if (window.location.href.includes('eppy-select')) {
       return (
@@ -70,13 +72,13 @@ function EpisodeEntry({ shows }) {
         </h1>
       )
     } else {
-      return episodeEntry
+      return <EpisodeTitle />
     }
   }
 
   return (
     <>
-      <ShowTitle />
+      <EpisodeEntryTitle />
       <form className="was-validated" onSubmit={handleSubmit}>
         <div className="row">
           <div className="form-group col-6 mb-3">
