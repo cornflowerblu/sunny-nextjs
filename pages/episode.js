@@ -7,7 +7,7 @@ export default function Episode({ shows }) {
   const [ episode, setEpisode ] = React.useState(null)
   const [ data, setData ] = React.useState({})
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event, endpoint) => {
     event.preventDefault()
 
     const JSONdata = JSON.stringify(data)
