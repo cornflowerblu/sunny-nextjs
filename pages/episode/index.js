@@ -1,6 +1,5 @@
 import EpisodeEntry from '../../components/episode-entry'
 import Layout from '../../components/layout'
-import React from 'react'
 
 export default function Episode({ shows }) {
   return <EpisodeEntry shows={shows} />
