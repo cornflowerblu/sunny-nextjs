@@ -51,7 +51,7 @@ function EpisodeEntry({ shows }) {
     return (
       <h1 className="display-6">
         Episode Entry /
-        <Link href={'/eppy-select'}>
+        <Link href={'/episode/update'}>
           <a className="text-decoration-none"> Edit a Show</a>
         </Link>
       </h1>
@@ -62,7 +62,7 @@ function EpisodeEntry({ shows }) {
     if (typeof window == 'undefined') {
       return <EpisodeTitle />
     }
-    if (window.location.href.includes('eppy-select')) {
+    if (window.location.href.includes('/episode/update')) {
       return (
         <h1 className="display-6">
           <Link href={'/episode'}>

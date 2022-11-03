@@ -1,29 +1,31 @@
 import React, { useEffect } from 'react'
-import EpisodeEntry from '../components/episode-entry'
-import Layout from '../components/layout'
+import EpisodeEntry from '../../components/episode-entry'
+import Layout from '../../components/layout'
 
 export default function SelectEpisode({ shows }) {
-  const [episodeId, setEpisodeId] = React.useState(false)    
+  const [episodeId, setEpisodeId] = React.useState(false)
 
   const Episode = () => {
     return (
       <>
-      <div className="form-group pb-4">
-        <h2 className="display-6 fs-2"></h2>
-        <label>Episode ID</label>
-        <input
-          className="form-control"
-          type="text"
-          name="id"
-          id="id"
-          value={episodeId}
-          readOnly
-          disabled
-          style={{ cursor: 'notAllowed' }}
-        ></input>
-      </div>
-      {/* NEED TO REMEMBER TO UN HARD CODE THIS */}
-      <EpisodeEntry shows={[{id: show, show_name: "It's Always Sunny in Philadelphia"}]} />
+        <div className="form-group pb-4">
+          <h2 className="display-6 fs-2"></h2>
+          <label>Episode ID</label>
+          <input
+            className="form-control"
+            type="text"
+            name="id"
+            id="id"
+            value={episodeId}
+            readOnly
+            disabled
+            style={{ cursor: 'notAllowed' }}
+          ></input>
+        </div>
+        {/* NEED TO REMEMBER TO UN HARD CODE THIS */}
+        <EpisodeEntry
+          shows={[{ id: show, show_name: "It's Always Sunny in Philadelphia" }]}
+        />
       </>
     )
   }
@@ -103,7 +105,7 @@ export default function SelectEpisode({ shows }) {
 export async function getStaticProps() {
   const res = await fetch(process.env.API_URL, {
     headers: {
-      'hasura_api_key': process.env.AUTH_HOOK_API_KEY,
+      hasura_api_key: process.env.AUTH_HOOK_API_KEY,
     },
   })
 
@@ -117,4 +119,3 @@ export async function getStaticProps() {
 SelectEpisode.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>
 }
-
