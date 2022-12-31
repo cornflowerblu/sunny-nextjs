@@ -99,7 +99,7 @@ export default function Index({ data }) {
 export async function getStaticProps() {
   const res = await fetch(process.env.API_URL, {
     headers: {
-      'hasura_api_key': process.env.AUTH_HOOK_API_KEY,
+      'x-hasura-admin-secret': process.env.AUTH_HOOK_API_KEY,
     },
   })
 
