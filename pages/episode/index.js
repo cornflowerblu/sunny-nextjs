@@ -8,7 +8,7 @@ export default function Episode({ shows }) {
 export async function getStaticProps() {
   const res = await fetch(process.env.REST_URL + '/shows', {
     headers: {
-      hasura_api_key: process.env.AUTH_HOOK_API_KEY,
+      'x-hasura-admin-secret': process.env.AUTH_HOOK_API_KEY,
     },
   })
 

@@ -76,10 +76,10 @@ export default function SelectEpisode({ shows }) {
               <option value=""> Select a show to see seasons </option>
               {show
                 ? shows.seasons_aggregate.nodes.map((season) => (
-                    <option key={season.id} value={season.id}>
-                      Season: {season.season_number}
-                    </option>
-                  ))
+                  <option key={season.id} value={season.id}>
+                    Season: {season.season_number}
+                  </option>
+                ))
                 : null}
             </select>
           </form>
@@ -105,7 +105,7 @@ export default function SelectEpisode({ shows }) {
 export async function getStaticProps() {
   const res = await fetch(process.env.API_URL, {
     headers: {
-      hasura_api_key: process.env.AUTH_HOOK_API_KEY,
+      'x-hasura-admin-secret': process.env.AUTH_HOOK_API_KEY,
     },
   })
 
