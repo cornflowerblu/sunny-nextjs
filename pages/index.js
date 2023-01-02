@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 
 export default function Index({ data }) {
   // A small function to generate a random number from anything that has a count
-  const getNumber = (max, min) => Math.floor(Math.random() * (max - 1) + min)
+  const getNumber = (max, min) => Math.floor(Math.random() * (max - 0) + min)
 
   // Set up state
   const [showDetails, setShowDetails] = React.useState(false)
@@ -23,14 +23,14 @@ export default function Index({ data }) {
     setName(arr.first_name)
 
     const seasonCount = data.shows_by_pk.seasons_aggregate.aggregate.count
-    const seasonNumber = getNumber(seasonCount, 1)
+    const seasonNumber = getNumber(seasonCount, 0)
     const seasonArr = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber]
     setSeason(seasonArr.season_number)
 
     const episodeCount =
       data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate
         .aggregate.count
-    const episodeNumber = getNumber(episodeCount, 1)
+    const episodeNumber = getNumber(episodeCount, 0)
     const episodeArr =
       data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate
         .nodes[episodeNumber]
