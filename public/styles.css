@@ -12,8 +12,21 @@
 }
 
 img {
+  /* width: 98%; */
   height: auto;
   border-radius: 12px;
+}
+
+@media screen and (max-width: 375px) {
+  img {
+    max-height: 172px;
+  }
+}
+
+@media screen and (width: 425px) {
+  img {
+    max-height: 215px;
+  }
 }
 
 .episodes {
