@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Layout from '../components/layout'
 
-export default function Index({ data }) {
+export default function Index({ characters_data, seasons_data, episodes_data }) {
   // A small function to generate a random number from anything that has a count
   const getNumber = (max, min) => Math.floor(Math.random() * (max - 0) + min)
 
@@ -16,26 +16,22 @@ export default function Index({ data }) {
 
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
-    const characterCount = data.shows_by_pk.characters_aggregate.aggregate.count
+    const characterCount = characters_data.cms_.characters.meta.pagination.total
     const characterNumber = getNumber(characterCount, 0)
-    const arr = data.shows_by_pk.characters_aggregate.nodes[characterNumber]
-    setImageUrl(arr.image_url)
+    const arr = characters_data.cms_.characters.data[characterNumber].attributes
+    setImageUrl(arr.image.data.attributes.url)
     setName(arr.first_name)
 
-    const seasonCount = data.shows_by_pk.seasons_aggregate.aggregate.count
+    const seasonCount = seasons_data.cms_.seasons.meta.pagination.total
     const seasonNumber = getNumber(seasonCount, 0)
-    const seasonArr = data.shows_by_pk.seasons_aggregate.nodes[seasonNumber]
+    const seasonArr = seasons_data.cms_.seasons.data[seasonNumber].attributes
     setSeason(seasonArr.season_number)
 
-    const episodeCount =
-      data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate
-        .aggregate.count
+    const episodeCount = episodes_data.cms_.episodes.meta.pagination.total
     const episodeNumber = getNumber(episodeCount, 0)
-    const episodeArr =
-      data.shows_by_pk.seasons_aggregate.nodes[seasonNumber].episodes_aggregate
-        .nodes[episodeNumber]
+    const episodeArr = episodes_data.cms_.episodes.data[episodeNumber].attributes
     setEpisode(episodeArr.episode_number)
-    setEpisodeTitle(episodeArr.title)
+    setEpisodeTitle(episodeArr.name)
     setDetails(episodeArr.description)
   }
 
@@ -44,7 +40,7 @@ export default function Index({ data }) {
   useEffect(() => {
     refreshPage()
     setRefresh(true)
-  }, [data])
+  }, [characters_data, seasons_data, episodes_data])
 
   // Show or hide episode details
   const Details = () => {
@@ -97,15 +93,15 @@ export default function Index({ data }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(process.env.API_URL, {
-    headers: {
-      'x-hasura-admin-secret': process.env.AUTH_HOOK_API_KEY,
-    },
-  })
+  const characters = await fetch('https://hasura.rurich.dev/api/rest/v1/show/1/characters')
+  const seasons = await fetch('https://hasura.rurich.dev/api/rest/v1/show/1/seasons')
+  const episodes = await fetch('https://hasura.rurich.dev/api/rest/v1/show/1/episodes')
 
-  const data = await res.json()
+  const characters_data = await characters.json()
+  const seasons_data = await seasons.json()
+  const episodes_data = await episodes.json()
 
-  return { props: { data }, revalidate: 300 }
+  return { props: { characters_data, seasons_data, episodes_data } }
 }
 
 Index.getLayout = function getLayout(page) {
