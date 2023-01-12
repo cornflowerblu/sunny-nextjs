@@ -13,6 +13,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
   const [episode, setEpisode] = React.useState('')
   const [episodeTitle, setEpisodeTitle] = React.useState('')
   const [details, setDetails] = React.useState('')
+  const [altText, setAltText] = React.useState('')
 
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
@@ -20,6 +21,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
     const characterNumber = getNumber(characterCount, 0)
     const arr = characters_data.cms_.characters.data[characterNumber].attributes
     setImageUrl(arr.image.data.attributes.url)
+    setAltText(arr.image.data.attributes.alternativeText)
     setName(arr.first_name)
 
     const seasonCount = seasons_data.cms_.seasons.meta.pagination.total
@@ -62,7 +64,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
               src={imageUrl}
-              alt="It's Always Sunny in Philadelphia Cast Member"
+              alt={altText}
             />
           </div>
           <div className="recommendation">
