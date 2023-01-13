@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import Layout from '../../../components/layout'
-
+import { useRouter } from 'next/router'
+import Error from 'next/error'
+import Link from 'next/link'
 
 
 export default function Index({ characters_data, seasons_data, episodes_data, show_data }) {
+
   // A small function to generate a random number from anything that has a count
   const getNumber = (max, min) => Math.floor(Math.random() * (max - 0) + min)
 
@@ -17,26 +20,37 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   const [details, setDetails] = React.useState('')
   const [altText, setAltText] = React.useState('')
 
+  // Router
+  const router = useRouter()
+  useEffect(() => {
+    router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
+  }, [router.pathname])
+
+
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
-    const characterCount = characters_data.cms_.characters.meta.pagination.total
-    const characterNumber = getNumber(characterCount, 0)
-    const arr = characters_data.cms_.characters.data[characterNumber].attributes
-    setImageUrl(arr.image.data.attributes.url)
-    setAltText(arr.image.data.attributes.alternativeText)
-    setName(arr.first_name)
+    try {
+      const characterCount = characters_data.cms_.characters.meta.pagination.total
+      const characterNumber = getNumber(characterCount, 0)
+      const arr = characters_data.cms_.characters.data[characterNumber].attributes
+      setImageUrl(arr.image.data.attributes.url)
+      setAltText(arr.image.data.attributes.alternativeText)
+      setName(arr.first_name)
 
-    const seasonCount = seasons_data.cms_.seasons.meta.pagination.total
-    const seasonNumber = getNumber(seasonCount, 0)
-    const seasonArr = seasons_data.cms_.seasons.data[seasonNumber].attributes
-    setSeason(seasonArr.season_number)
+      const seasonCount = seasons_data.cms_.seasons.meta.pagination.total
+      const seasonNumber = getNumber(seasonCount, 0)
+      const seasonArr = seasons_data.cms_.seasons.data[seasonNumber].attributes
+      setSeason(seasonArr.season_number)
 
-    const episodeCount = episodes_data.cms_.episodes.meta.pagination.total
-    const episodeNumber = getNumber(episodeCount, 0)
-    const episodeArr = episodes_data.cms_.episodes.data[episodeNumber].attributes
-    setEpisode(episodeArr.episode_number)
-    setEpisodeTitle(episodeArr.name)
-    setDetails(episodeArr.description)
+      const episodeCount = episodes_data.cms_.episodes.meta.pagination.total
+      const episodeNumber = getNumber(episodeCount, 0)
+      const episodeArr = episodes_data.cms_.episodes.data[episodeNumber].attributes
+      setEpisode(episodeArr.episode_number)
+      setEpisodeTitle(episodeArr.name)
+      setDetails(episodeArr.description)
+    } catch (error) {
+      return console.log(error)
+    }
   }
 
   // Trigger the first refresh and populate the data
@@ -59,10 +73,18 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     showDetails ? setShowDetails(false) : setShowDetails(true)
 
   if (isRefreshed) {
+    if (router.query.id === 'undefined') {
+      return (
+        <div className="mx-auto text-center" style={{ color: "black" }}>
+          <Link href='/'><a>Back to Safety</a></Link>
+          <Error statusCode='404' />
+        </div>
+      )
+    }
     return (
       <>
         <div className="mx-auto text-center">
-          <h1 className="display-6 pb-2">{show_data.show} Episodes</h1>
+          <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
               src={imageUrl}
