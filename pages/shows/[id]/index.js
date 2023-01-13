@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import Layout from '../components/layout'
+import Layout from '../../../components/layout'
 
 
 
-export default function Index({ characters_data, seasons_data, episodes_data }) {
+export default function Index({ characters_data, seasons_data, episodes_data, show_data }) {
   // A small function to generate a random number from anything that has a count
   const getNumber = (max, min) => Math.floor(Math.random() * (max - 0) + min)
 
@@ -62,7 +62,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
     return (
       <>
         <div className="mx-auto text-center">
-          <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
+          <h1 className="display-6 pb-2">{show_data.show} Episodes</h1>
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
               src={imageUrl}
@@ -96,17 +96,31 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
   }
 }
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
+  const showsData = await fetch('https://hasura.rurich.dev/api/rest/v2/shows')
+  const shows = await showsData.json()
 
-  const characters = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/characters`)
-  const seasons = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/seasons`)
-  const episodes = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/episodes`)
+  const paths = shows.cms_.shows.data.map((show) => ({ params: { id: show.id } }))
 
+  return {
+    paths: paths,
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+
+  const show = await fetch(`https://cms.rurich.dev/api/shows/count?${params.id}`)
+  const characters = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/characters`)
+  const seasons = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/seasons`)
+  const episodes = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/episodes`)
+
+  const show_data = await show.json()
   const characters_data = await characters.json()
   const seasons_data = await seasons.json()
   const episodes_data = await episodes.json()
 
-  return { props: { characters_data, seasons_data, episodes_data } }
+  return { props: { characters_data, seasons_data, episodes_data, show_data } }
 }
 
 Index.getLayout = function getLayout(page) {
