@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import Layout from '../components/layout'
 
+
+
 export default function Index({ characters_data, seasons_data, episodes_data }) {
   // A small function to generate a random number from anything that has a count
   const getNumber = (max, min) => Math.floor(Math.random() * (max - 0) + min)
@@ -95,9 +97,10 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
 }
 
 export async function getStaticProps() {
-  const characters = await fetch('https://hasura.rurich.dev/api/rest/v1/show/1/characters')
-  const seasons = await fetch('https://hasura.rurich.dev/api/rest/v1/show/1/seasons')
-  const episodes = await fetch('https://hasura.rurich.dev/api/rest/v1/show/1/episodes')
+
+  const characters = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/characters`)
+  const seasons = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/seasons`)
+  const episodes = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/episodes`)
 
   const characters_data = await characters.json()
   const seasons_data = await seasons.json()
