@@ -22,10 +22,6 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
 
   // Router
   const router = useRouter()
-  useEffect(() => {
-    router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
-  }, [router.pathname])
-
 
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
@@ -58,6 +54,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   useEffect(() => {
     refreshPage()
     setRefresh(true)
+    router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
   }, [characters_data, seasons_data, episodes_data])
 
   // Show or hide episode details
@@ -84,7 +81,9 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     return (
       <>
         <div className="mx-auto text-center">
-          <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
+          <Link href={'/shows/2'}>
+            <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
+          </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
               src={imageUrl}

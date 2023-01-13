@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Link from 'next/link'
 import Layout from '../components/layout'
 
 
@@ -62,7 +63,9 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
     return (
       <>
         <div className="mx-auto text-center">
-          <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
+          <Link href={'/shows/1'} >
+            <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
+          </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
               src={imageUrl}
