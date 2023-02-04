@@ -88,6 +88,8 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
             <img
               src={imageUrl}
               alt={altText}
+              decoding="sync"
+              fetchPriority="high"
             />
           </div>
           <div className="recommendation">
