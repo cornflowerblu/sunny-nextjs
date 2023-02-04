@@ -70,6 +70,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
             <img
               src={imageUrl}
               alt={altText}
+              decoding="sync"
             />
           </div>
           <div className="recommendation">
