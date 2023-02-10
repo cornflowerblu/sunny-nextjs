@@ -119,6 +119,11 @@ const Shows: NextPageWithLayout = ({ characters, seasons, episodes, show }: { ch
             </div>
           </div>
         </main>
+        <footer className="text-muted py-5">
+          <p className="d-flex flex-auto justify-content-center mb-1 mx-auto">
+            <Link className='text-muted py-5 text-decoration-none' href={'/'}>Back to home</Link>
+          </p>
+        </footer>
       </Layout>
     )
   }
