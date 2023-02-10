@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Layout from '../../components/layout'
+import Layout from '../../components/layout.home'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Show } from '../../types/cms/show'

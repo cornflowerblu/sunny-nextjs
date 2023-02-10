@@ -3,11 +3,11 @@ const path = require('path')
 module.exports = {
   async redirects() {
     return [
-      {
-        source: '/',
-        destination: '/shows/1',
-        permanent: true,
-      },
+      // {
+      //   source: '/',
+      //   destination: '/shows/1',
+      //   permanent: true,
+      // },
     ]
   },
   sassOptions: {
