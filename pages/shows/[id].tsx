@@ -130,8 +130,7 @@ const Shows: NextPageWithLayout = ({ characters, seasons, episodes, show }: { ch
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const showsData = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
-  const shows: Show = await showsData.json()
+  const shows: Show = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)).json()
 
   const paths = shows.cms_.shows.data.map((show: Show) => ({ params: { id: show.id } }))
 
