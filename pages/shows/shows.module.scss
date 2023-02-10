@@ -1,0 +1,29 @@
+.title {
+  text-decoration: none;
+  color: (var(--bs-body-color));
+  
+  &:hover {
+    text-decoration: none;
+    color: (var(--bs-body-color));
+  }
+}
+
+.recommendation {
+  display: block;
+  width: auto;
+  text-align: center;
+
+  @media screen and (min-width: 1200px) {
+      width: 50%;
+      margin: auto;
+    }
+}
+
+.character {
+  img {
+    /* width: 98%; */
+    height: auto;
+    border-radius: 12px;
+  }
+}
+
