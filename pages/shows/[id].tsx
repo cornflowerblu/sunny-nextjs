@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import Layout from '../../components/layout.home'
+import React, { ReactElement, useEffect } from 'react'
+import Layout from '../../components/layout'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Show } from '../../types/cms/show'
@@ -8,9 +8,10 @@ import { Season } from '../../types/cms/season'
 import { Episode } from '../../types/cms/episode'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import styles from './shows.module.scss'
+import { NextPageWithLayout } from '../_app'
 
 
-export default function Index({ characters, seasons, episodes, show }: { characters: Character, seasons: Season, episodes: Episode, show: Show }) {
+const Shows: NextPageWithLayout = ({ characters, seasons, episodes, show }: { characters: Character, seasons: Season, episodes: Episode, show: Show }) => {
 
   // A small function to generate a random number from anything that has a count
   const getNumber = (max: number, min: number) => Math.floor(Math.random() * (max - 0) + min)
@@ -144,3 +145,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return { props: { characters, seasons, episodes, show } }
 }
+
+Shows.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
+}
+
+export default Shows
