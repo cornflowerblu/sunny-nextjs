@@ -80,43 +80,44 @@ export default function Index({ characters, seasons, episodes, show }: { charact
   if (isRefreshed) {
     return (
       <Layout>
-        <div className="mx-auto text-center">
-          <Link className={styles.title} href={`/shows/${(show.show?.slug === 'always-sunny') ? 'friends' : 'always-sunny'}`}>
-            <h1 className="display-6 pb-2">{(show.show?.short_name) ? show.show.short_name : show.show?.name} Episode Picker</h1>
-          </Link>
-          <div className="d-flex align-items-center justify-content-center pb-2">
-            <img
-              className={styles.character}
-              src={imageUrl}
-              alt={altText}
-              decoding="sync"
-              loading="eager"
-              // @ts-ignore
-              fetchpriority="high"
-            />
-          </div>
-          <div className={styles.recommendation}>
-            <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">
-              {name} says you should watch <br /> Season {season}, Episode{' '}
-              {episode}.
-            </p>
-            <div className="d-flex flex-row" style={{ marginBottom: '3rem' }}>
-              <a
-                className="btn btn-primary btn-lg w-50 mt-3 me-2"
-                onClick={refreshPage}
-              >
-                Shuffle
-              </a>
-              <a
-                className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2"
-                onClick={renderDetails}
-              >
-                Details
-              </a>
+        <main className={styles.container}>
+          <div className="mx-auto text-center">
+            <Link className={styles.title} href={`/shows/${(show.show?.slug === 'always-sunny') ? 'friends' : 'always-sunny'}`}>
+              <h1 className="display-6 pb-2">{(show.show?.short_name) ? show.show.short_name : show.show?.name} Episode Picker</h1>
+            </Link>
+            <div className="d-flex align-items-center justify-content-center pb-2">
+              <img
+                src={imageUrl}
+                alt={altText}
+                decoding="sync"
+                loading="eager"
+                // @ts-ignore
+                fetchpriority="high"
+              />
             </div>
-            {showDetails ? <Details /> : null}
+            <div className={styles.recommendation}>
+              <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">
+                {name} says you should watch <br /> Season {season}, Episode{' '}
+                {episode}.
+              </p>
+              <div className="d-flex flex-row" style={{ marginBottom: '3rem' }}>
+                <a
+                  className="btn btn-primary btn-lg w-50 mt-3 me-2"
+                  onClick={refreshPage}
+                >
+                  Shuffle
+                </a>
+                <a
+                  className="btn btn-outline-primary btn-lg w-50 mt-3 ms-2"
+                  onClick={renderDetails}
+                >
+                  Details
+                </a>
+              </div>
+              {showDetails ? <Details /> : null}
+            </div>
           </div>
-        </div>
+        </main>
       </Layout>
     )
   }
