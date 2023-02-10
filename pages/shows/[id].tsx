@@ -64,7 +64,7 @@ export default function Index({ characters, seasons, episodes, show }: { charact
   useEffect(() => {
     refreshPage()
     setRefresh(true)
-  }, [characters, seasons, episodes])
+  }, [router.query])
 
   // Show or hide episode details
   const Details = () => {
@@ -81,7 +81,7 @@ export default function Index({ characters, seasons, episodes, show }: { charact
     return (
       <Layout>
         <div className="mx-auto text-center">
-          <Link className={styles.title} href={`/shows/${(show.show?.id === 1) ? 2 : 1}`}>
+          <Link className={styles.title} href={`/shows/${(show.show?.slug === 'always-sunny') ? 'friends' : 'always-sunny'}`}>
             <h1 className="display-6 pb-2">{(show.show?.short_name) ? show.show.short_name : show.show?.name} Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">

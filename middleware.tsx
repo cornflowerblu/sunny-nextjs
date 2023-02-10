@@ -15,7 +15,7 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
 
   const show: Show = showsData.cms_.shows.data.find((show: Show) => show.attributes.slug === path)
 
-  return NextResponse.redirect(new URL(`/shows/${show.id}`, request.url))
+  return NextResponse.rewrite(new URL(`/shows/${show.id}`, request.url))
 }
 
 
