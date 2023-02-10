@@ -2,12 +2,17 @@ import React, { useEffect } from 'react'
 import Layout from '../../components/layout'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { Show } from '../../types/cms/show'
+import { Character } from '../../types/cms/character'
+import { Season } from '../../types/cms/season'
+import { Episode } from '../../types/cms/episode'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 
-export default function Index({ characters_data, seasons_data, episodes_data, show_data }) {
+export default function Index({ characters_data, seasons_data, episodes_data, show_data }: { characters_data: Character, seasons_data: Season, episodes_data: Episode, show_data: Show }) {
 
   // A small function to generate a random number from anything that has a count
-  const getNumber = (max, min) => Math.floor(Math.random() * (max - 0) + min)
+  const getNumber = (max: number, min: number) => Math.floor(Math.random() * (max - 0) + min)
 
   // Set up state
   const [showDetails, setShowDetails] = React.useState(false)
@@ -22,7 +27,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   // Router
   const router = useRouter()
   useEffect(() => {
-    if (router.query.id > 0) {
+    if (+router.query.id > 0) {
       router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
     }
   }, [router.query])
@@ -83,7 +88,9 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
               src={imageUrl}
               alt={altText}
               decoding="sync"
-              fetchPriority="high"
+              loading="eager"
+              // @ts-ignore
+              fetchpriority="high"
             />
           </div>
           <div className="recommendation">
@@ -113,11 +120,11 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const showsData = await fetch('https://hasura.rurich.dev/api/rest/v2/shows')
-  const shows = await showsData.json()
+  const shows: Show = await showsData.json()
 
-  const paths = shows.cms_.shows.data.map((show) => ({ params: { id: show.id } }))
+  const paths = shows.cms_.shows.data.map((show: Show) => ({ params: { id: show.id } }))
 
   return {
     paths: paths,
@@ -125,17 +132,17 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const show = await fetch(`https://cms.rurich.dev/api/shows/count?${params.id}`)
   const characters = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/characters`)
   const seasons = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/seasons`)
   const episodes = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/episodes`)
 
-  const show_data = await show.json()
-  const characters_data = await characters.json()
-  const seasons_data = await seasons.json()
-  const episodes_data = await episodes.json()
+  const show_data: Show = await show.json()
+  const characters_data: Character = await characters.json()
+  const seasons_data: Season = await seasons.json()
+  const episodes_data: Episode = await episodes.json()
 
   return { props: { characters_data, seasons_data, episodes_data, show_data } }
 }
