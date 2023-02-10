@@ -10,7 +10,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import styles from './shows.module.scss'
 
 
-export default function Index({ characters_data, seasons_data, episodes_data, show_data }: { characters_data: Character, seasons_data: Season, episodes_data: Episode, show_data: Show }) {
+export default function Index({ characters, seasons, episodes, show }: { characters: Character, seasons: Season, episodes: Episode, show: Show }) {
 
   // A small function to generate a random number from anything that has a count
   const getNumber = (max: number, min: number) => Math.floor(Math.random() * (max - 0) + min)
@@ -29,28 +29,28 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   const router = useRouter()
   useEffect(() => {
     if (+router.query.id > 0) {
-      router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
+      router.push(`/shows/${show.show?.slug}`, undefined, { shallow: true })
     }
   }, [router.query])
 
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
     try {
-      const characterCount = characters_data.cms_.characters.meta.pagination.total
+      const characterCount = characters.cms_.characters.meta.pagination.total
       const characterNumber = getNumber(characterCount, 0)
-      const arr = characters_data.cms_.characters.data[characterNumber].attributes
+      const arr = characters.cms_.characters.data[characterNumber].attributes
       setImageUrl(arr.image.data.attributes.url)
       setAltText(arr.image.data.attributes.alternativeText)
       setName(arr.first_name)
 
-      const seasonCount = seasons_data.cms_.seasons.meta.pagination.total
+      const seasonCount = seasons.cms_.seasons.meta.pagination.total
       const seasonNumber = getNumber(seasonCount, 0)
-      const seasonArr = seasons_data.cms_.seasons.data[seasonNumber].attributes
+      const seasonArr = seasons.cms_.seasons.data[seasonNumber].attributes
       setSeason(seasonArr.season_number)
 
-      const episodeCount = episodes_data.cms_.episodes.meta.pagination.total
+      const episodeCount = episodes.cms_.episodes.meta.pagination.total
       const episodeNumber = getNumber(episodeCount, 0)
-      const episodeArr = episodes_data.cms_.episodes.data[episodeNumber].attributes
+      const episodeArr = episodes.cms_.episodes.data[episodeNumber].attributes
       setEpisode(episodeArr.episode_number)
       setEpisodeTitle(episodeArr.name)
       setDetails(episodeArr.description)
@@ -64,7 +64,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   useEffect(() => {
     refreshPage()
     setRefresh(true)
-  }, [characters_data, seasons_data, episodes_data])
+  }, [characters, seasons, episodes])
 
   // Show or hide episode details
   const Details = () => {
@@ -81,8 +81,8 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     return (
       <Layout>
         <div className="mx-auto text-center">
-          <Link className={styles.title} href={`/shows/${(show_data.show?.id === 1) ? 2 : 1}`}>
-            <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
+          <Link className={styles.title} href={`/shows/${(show.show?.id === 1) ? 2 : 1}`}>
+            <h1 className="display-6 pb-2">{(show.show?.short_name) ? show.show.short_name : show.show?.name} Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
@@ -136,15 +136,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-  const show = await fetch(`${process.env.NEXT_PUBLIC_CMS_REST_API}/shows/count?${params.id}`)
-  const characters = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/characters`)
-  const seasons = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/seasons`)
-  const episodes = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/episodes`)
+  const show: Show = await (await fetch(`${process.env.NEXT_PUBLIC_CMS_REST_API}/shows/count?${params.id}`)).json()
+  const characters: Array<Character> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/characters`)).json()
+  const seasons: Array<Season> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/seasons`)).json()
+  const episodes: Array<Episode> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/episodes`)).json()
 
-  const show_data: Show = await show.json()
-  const characters_data: Character = await characters.json()
-  const seasons_data: Season = await seasons.json()
-  const episodes_data: Episode = await episodes.json()
-
-  return { props: { characters_data, seasons_data, episodes_data, show_data } }
+  return { props: { characters, seasons, episodes, show } }
 }
