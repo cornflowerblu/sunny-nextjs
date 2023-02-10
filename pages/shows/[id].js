@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import Layout from '../../../components/layout'
+import Layout from '../../components/layout'
 import { useRouter } from 'next/router'
-import Error from 'next/error'
 import Link from 'next/link'
 
 
@@ -22,6 +21,11 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
 
   // Router
   const router = useRouter()
+  useEffect(() => {
+    if (router.query.id > 0) {
+      router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
+    }
+  }, [router.query])
 
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
@@ -54,7 +58,6 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   useEffect(() => {
     refreshPage()
     setRefresh(true)
-    router.push(`/shows/${show_data.show?.slug}`, undefined, { shallow: true })
   }, [characters_data, seasons_data, episodes_data])
 
   // Show or hide episode details
@@ -68,20 +71,11 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
   }
   const renderDetails = () =>
     showDetails ? setShowDetails(false) : setShowDetails(true)
-
   if (isRefreshed) {
-    if (router.query.id === 'undefined') {
-      return (
-        <div className="mx-auto text-center" style={{ color: "black" }}>
-          <Link href='/'><a>Back to Safety</a></Link>
-          <Error statusCode='404' />
-        </div>
-      )
-    }
     return (
       <>
         <div className="mx-auto text-center">
-          <Link href={'/shows/2'}>
+          <Link className='title' href={'/shows/2'}>
             <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">

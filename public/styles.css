@@ -1,3 +1,13 @@
+.title {
+  text-decoration: none;
+  color: (var(--bs-body-color));
+}
+
+.title:hover {
+  text-decoration: none;
+  color: (var(--bs-body-color));
+}
+
 .recommendation {
   display: block;
   width: auto;

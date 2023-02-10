@@ -63,7 +63,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }) 
     return (
       <>
         <div className="mx-auto text-center">
-          <Link href={'/shows/1'} >
+          <Link className='title' href={'/shows/1'} >
             <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
