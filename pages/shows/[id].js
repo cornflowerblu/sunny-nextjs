@@ -75,7 +75,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     return (
       <>
         <div className="mx-auto text-center">
-          <Link className='title' href={'/shows/2'}>
+          <Link className='title' href={`/shows/${(show_data.show?.id === 1) ? 2 : 1}`}>
             <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
