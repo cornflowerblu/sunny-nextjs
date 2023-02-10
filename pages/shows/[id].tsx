@@ -7,6 +7,7 @@ import { Character } from '../../types/cms/character'
 import { Season } from '../../types/cms/season'
 import { Episode } from '../../types/cms/episode'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import styles from './shows.module.scss'
 
 
 export default function Index({ characters_data, seasons_data, episodes_data, show_data }: { characters_data: Character, seasons_data: Season, episodes_data: Episode, show_data: Show }) {
@@ -80,11 +81,12 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     return (
       <Layout>
         <div className="mx-auto text-center">
-          <Link className='title' href={`/shows/${(show_data.show?.id === 1) ? 2 : 1}`}>
+          <Link className={styles.title} href={`/shows/${(show_data.show?.id === 1) ? 2 : 1}`}>
             <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
             <img
+              className={styles.character}
               src={imageUrl}
               alt={altText}
               decoding="sync"
@@ -93,7 +95,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
               fetchpriority="high"
             />
           </div>
-          <div className="recommendation">
+          <div className={styles.recommendation}>
             <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">
               {name} says you should watch <br /> Season {season}, Episode{' '}
               {episode}.

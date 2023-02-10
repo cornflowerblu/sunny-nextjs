@@ -5,6 +5,7 @@ import { GetStaticProps } from 'next'
 import { Character } from '../types/cms/character'
 import { Season } from '../types/cms/season'
 import { Episode } from '../types/cms/episode'
+import styles from '../pages/shows/shows.module.scss'
 
 
 
@@ -67,7 +68,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }: 
     return (
       <Layout>
         <div className="mx-auto text-center">
-          <Link className='title' href={'/shows/1'} >
+          <Link className={styles.title} href={'/shows/1'} >
             <h1 className="display-6 pb-2">Always Sunny Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
@@ -80,7 +81,7 @@ export default function Index({ characters_data, seasons_data, episodes_data }: 
               fetchpriority="high"
             />
           </div>
-          <div className="recommendation">
+          <div className={styles.recommendation}>
             <p className="fs-5 text-primary shadow p-3 mt-3 bg-body rounded">
               {name} says you should watch <br /> Season {season}, Episode{' '}
               {episode}.
