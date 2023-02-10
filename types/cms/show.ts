@@ -1,4 +1,5 @@
 export interface Show {
+  show: any
   cms_: any
   id: number,
   attributes: ShowAttributes
