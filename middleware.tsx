@@ -11,10 +11,9 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
     return;
   }
 
-  const showsData = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
+  const showsData = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)).json()
 
-  const shows: Show = await showsData.json()
-  const show: Show = shows.cms_.shows.data.find((show: Show) => show.attributes.slug === path)
+  const show: Show = showsData.cms_.shows.data.find((show: Show) => show.attributes.slug === path)
 
   return NextResponse.redirect(new URL(`/shows/${show.id}`, request.url))
 }
