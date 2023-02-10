@@ -109,9 +109,9 @@ export default function Index({ characters_data, seasons_data, episodes_data }: 
 
 export const getStaticProps: GetStaticProps = async () => {
 
-  const characters = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/characters`)
-  const seasons = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/seasons`)
-  const episodes = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/1/episodes`)
+  const characters = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/1/characters`)
+  const seasons = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/1/seasons`)
+  const episodes = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/1/episodes`)
 
   const characters_data: Character = await characters.json()
   const seasons_data: Season = await seasons.json()

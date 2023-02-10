@@ -78,7 +78,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     showDetails ? setShowDetails(false) : setShowDetails(true)
   if (isRefreshed) {
     return (
-      <>
+      <Layout>
         <div className="mx-auto text-center">
           <Link className='title' href={`/shows/${(show_data.show?.id === 1) ? 2 : 1}`}>
             <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
@@ -115,13 +115,13 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
             {showDetails ? <Details /> : null}
           </div>
         </div>
-      </>
+      </Layout>
     )
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const showsData = await fetch('https://hasura.rurich.dev/api/rest/v2/shows')
+  const showsData = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
   const shows: Show = await showsData.json()
 
   const paths = shows.cms_.shows.data.map((show: Show) => ({ params: { id: show.id } }))
@@ -134,10 +134,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-  const show = await fetch(`https://cms.rurich.dev/api/shows/count?${params.id}`)
-  const characters = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/characters`)
-  const seasons = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/seasons`)
-  const episodes = await fetch(`https://hasura.rurich.dev/api/rest/v1/show/${params.id}/episodes`)
+  const show = await fetch(`${process.env.NEXT_PUBLIC_CMS_REST_API}/shows/count?${params.id}`)
+  const characters = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/characters`)
+  const seasons = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/seasons`)
+  const episodes = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/episodes`)
 
   const show_data: Show = await show.json()
   const characters_data: Character = await characters.json()
@@ -145,8 +145,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const episodes_data: Episode = await episodes.json()
 
   return { props: { characters_data, seasons_data, episodes_data, show_data } }
-}
-
-Index.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>
 }

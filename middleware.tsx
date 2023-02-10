@@ -11,7 +11,7 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
     return;
   }
 
-  const showsData = await fetch('https://hasura.rurich.dev/api/rest/v2/shows')
+  const showsData = await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
 
   const shows: Show = await showsData.json()
   const show: Show = shows.cms_.shows.data.find((show: Show) => show.attributes.slug === path)
