@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Layout from '../../components/layout'
 import { useRouter } from 'next/router'
-import Error from 'next/error'
 import Link from 'next/link'
 
 
@@ -76,7 +75,7 @@ export default function Index({ characters_data, seasons_data, episodes_data, sh
     return (
       <>
         <div className="mx-auto text-center">
-          <Link style={{ textDecoration: 'none', color: 'var(--bs-body-color)' }} href={'/shows/2'}>
+          <Link className='title' href={'/shows/2'}>
             <h1 className="display-6 pb-2">{(show_data.show?.short_name) ? show_data.show.short_name : show_data.show?.name} Episode Picker</h1>
           </Link>
           <div className="d-flex align-items-center justify-content-center pb-2">
