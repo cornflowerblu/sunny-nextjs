@@ -16,11 +16,11 @@ function HomeLayout({ children }) {
                             <h1 className="display-6 pb-2">Episode Picker</h1>
                         </a>
 
-                        <ul className="d-flex flex-auto align-items-center nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <ul className="d-flex flex-auto align-items-center nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-auto">
                             <li><a href="#" className="nav-link px-2 link-dark">Shows</a></li>
                             <li><a href="#" className="nav-link px-2 link-dark">Genres</a></li>
                             <li><a href="#" className="nav-link px-2 link-dark">Actors</a></li>
-                            <li><a href="#" className="nav-link px-2 link-dark">Random</a></li>
+                            <li><a href="#" className="nav-link px-2 link-dark">About</a></li>
                         </ul>
 
                         <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style={{ width: '18rem' }} role="search">
