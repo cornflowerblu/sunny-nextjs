@@ -1,11 +1,9 @@
-import { NextResponse } from 'next/server'
+import { NextMiddleware, NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { Show } from './types/cms/show';
 
 
-
-// This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
+export const middleware: NextMiddleware = async (request: NextRequest) => {
   const { pathname } = new URL(request.url)
   const path = pathname.split('/')[2]
 
@@ -21,7 +19,7 @@ export async function middleware(request: NextRequest) {
   return NextResponse.redirect(new URL(`/shows/${show.id}`, request.url))
 }
 
-// See "Matching Paths" below to learn more
+
 export const config = {
   matcher: '/shows/:slug*',
 }
