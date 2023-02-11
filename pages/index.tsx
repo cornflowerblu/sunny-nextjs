@@ -8,12 +8,16 @@ import { Show } from '../types/cms/show'
 import style from './index.module.scss'
 import { NextPageWithLayout } from './_app'
 
-
-
-
-const Index: NextPageWithLayout = ({ shows, seasons }: { shows: Show, seasons: Season }) => {
-
-  const seasonCount = (showId: number) => seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes.seasons.data.length
+const Index: NextPageWithLayout = ({
+  shows,
+  seasons,
+}: {
+  shows: Show
+  seasons: Season
+}) => {
+  const seasonCount = (showId: number) =>
+    seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes
+      .seasons.data.length
 
   return (
     <main>
@@ -21,9 +25,17 @@ const Index: NextPageWithLayout = ({ shows, seasons }: { shows: Show, seasons: S
         <div className="row py-lg-5">
           <div className="col-lg-6 col-md-8 mx-auto">
             <h1 className="fw-light">No More Wondering What to Watch</h1>
-            <p className="lead text-muted">We'll (with the help of some special guests) pick a random episode of your favorite show! Now you can just sit back and relax without having to decide on what to watch. If you're feeling adventerous hit the button below to dive right in!</p>
+            <p className="lead text-muted">
+              We'll (with the help of some special guests) pick a random episode
+              of your favorite show! Now you can just sit back and relax without
+              having to decide on what to watch. If you're feeling adventerous
+              hit the button below to dive right in!
+            </p>
             <p>
-              <Link className="btn btn-primary my-3 py-2 mx-4" href={'/shows/always-sunny'}>
+              <Link
+                className="btn btn-primary my-3 py-2 mx-4"
+                href={'/shows/always-sunny'}
+              >
                 Watch a Random Episode of a Random Show
               </Link>
             </p>
@@ -31,14 +43,11 @@ const Index: NextPageWithLayout = ({ shows, seasons }: { shows: Show, seasons: S
         </div>
       </section>
 
-
       <h1 className="col-lg-4 col-md-8 d-flex flex-auto justify-content-center mx-auto fw-light py-3">
         Trending Shows
       </h1>
       <div className="album py-5 bg-light">
-
         <div className={style.container}>
-
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mx-4">
             {shows?.cms_.shows.data.map((show: Show) => {
               return (
@@ -47,7 +56,10 @@ const Index: NextPageWithLayout = ({ shows, seasons }: { shows: Show, seasons: S
                     <div className="card-img-top">
                       <img
                         src={show.attributes.thumbnail.data[0].attributes.url}
-                        alt={show.attributes.thumbnail.data[0].attributes.alternativeText}
+                        alt={
+                          show.attributes.thumbnail.data[0].attributes
+                            .alternativeText
+                        }
                         loading="eager"
                         // @ts-ignore
                         fetchpriority="high"
@@ -60,10 +72,18 @@ const Index: NextPageWithLayout = ({ shows, seasons }: { shows: Show, seasons: S
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
                           <Link href={`/shows/${show.id}`}>
-                            <button type="button" className="btn btn-sm btn-outline-secondary">Shuffle</button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-secondary"
+                            >
+                              Shuffle
+                            </button>
                           </Link>
                         </div>
-                        <small className="text-muted">{seasonCount(show.id)}{(seasonCount(show.id) <= 1) ? ' season' : ' seasons'}</small>
+                        <small className="text-muted">
+                          {seasonCount(show.id)}
+                          {seasonCount(show.id) <= 1 ? ' season' : ' seasons'}
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -78,12 +98,16 @@ const Index: NextPageWithLayout = ({ shows, seasons }: { shows: Show, seasons: S
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const shows: Array<Show> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)).json()
+  const shows: Array<Show> = await (
+    await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
+  ).json()
 
-  const seasons: Array<Season> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/shows/seasons`)).json()
+  const seasons: Array<Season> = await (
+    await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/shows/seasons`)
+  ).json()
 
   return {
-    props: { shows, seasons }
+    props: { shows, seasons },
   }
 }
 

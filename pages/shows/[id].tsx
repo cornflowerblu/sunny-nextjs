@@ -10,11 +10,20 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import styles from './shows.module.scss'
 import { NextPageWithLayout } from '../_app'
 
-
-export default function Shows({ characters, seasons, episodes, show }: { characters: Character, seasons: Season, episodes: Episode, show: Show }) {
-
+export default function Shows({
+  characters,
+  seasons,
+  episodes,
+  show,
+}: {
+  characters: Character
+  seasons: Season
+  episodes: Episode
+  show: Show
+}) {
   // A small function to generate a random number from anything that has a count
-  const getNumber = (max: number, min: number) => Math.floor(Math.random() * (max - 0) + min)
+  const getNumber = (max: number, min: number) =>
+    Math.floor(Math.random() * (max - 0) + min)
 
   // Set up state
   const [showDetails, setShowDetails] = React.useState(false)
@@ -83,8 +92,16 @@ export default function Shows({ characters, seasons, episodes, show }: { charact
       <Layout>
         <main className={styles.container}>
           <div className="mx-auto text-center">
-            <Link className={styles.title} href={`/shows/${(show.show?.slug === 'always-sunny') ? 'friends' : 'always-sunny'}`}>
-              <h1 className="display-6 pb-2">{(show.show?.short_name) ? show.show.short_name : show.show?.name} Episode Picker</h1>
+            <Link
+              className={styles.title}
+              href={`/shows/${
+                show.show?.slug === 'always-sunny' ? 'friends' : 'always-sunny'
+              }`}
+            >
+              <h1 className="display-6 pb-2">
+                {show.show?.short_name ? show.show.short_name : show.show?.name}{' '}
+                Episode Picker
+              </h1>
             </Link>
             <div className="d-flex align-items-center justify-content-center pb-2">
               <img
@@ -121,7 +138,9 @@ export default function Shows({ characters, seasons, episodes, show }: { charact
         </main>
         <footer className="text-muted py-5">
           <p className="d-flex flex-auto justify-content-center mb-1 mx-auto">
-            <Link className='text-muted py-5 text-decoration-none' href={'/'}>Back to home</Link>
+            <Link className="text-muted py-5 text-decoration-none" href={'/'}>
+              Back to home
+            </Link>
           </p>
         </footer>
       </Layout>
@@ -130,9 +149,13 @@ export default function Shows({ characters, seasons, episodes, show }: { charact
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const shows: Show = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)).json()
+  const shows: Show = await (
+    await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
+  ).json()
 
-  const paths = shows.cms_.shows.data.map((show: Show) => ({ params: { id: show.id } }))
+  const paths = shows.cms_.shows.data.map((show: Show) => ({
+    params: { id: show.id },
+  }))
 
   return {
     paths: paths,
@@ -141,11 +164,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-
-  const show: Show = await (await fetch(`${process.env.NEXT_PUBLIC_CMS_REST_API}/shows/count?${params.id}`)).json()
-  const characters: Array<Character> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/characters`)).json()
-  const seasons: Array<Season> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/seasons`)).json()
-  const episodes: Array<Episode> = await (await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/episodes`)).json()
+  const show: Show = await (
+    await fetch(
+      `${process.env.NEXT_PUBLIC_CMS_REST_API}/shows/count?${params.id}`,
+    )
+  ).json()
+  const characters: Array<Character> = await (
+    await fetch(
+      `${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/characters`,
+    )
+  ).json()
+  const seasons: Array<Season> = await (
+    await fetch(
+      `${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/seasons`,
+    )
+  ).json()
+  const episodes: Array<Episode> = await (
+    await fetch(
+      `${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/show/${params.id}/episodes`,
+    )
+  ).json()
 
   return { props: { characters, seasons, episodes, show } }
 }
