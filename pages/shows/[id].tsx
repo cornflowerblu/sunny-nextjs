@@ -8,7 +8,6 @@ import { Season } from '../../types/cms/season'
 import { Episode } from '../../types/cms/episode'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import styles from './shows.module.scss'
-import { NextPageWithLayout } from '../_app'
 
 export default function Shows({
   characters,

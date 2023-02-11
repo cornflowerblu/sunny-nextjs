@@ -50,12 +50,12 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.cardImage { 
-    @media screen and (width: 768px) {
-        height: 133px;      
-    }
+.cardImage {
+  @media screen and (width: 768px) {
+    height: 133px;
+  }
 
-    @media screen and (min-width: 1024px) {
-        height: 226px;      
-    }
- }
+  @media screen and (min-width: 1024px) {
+    height: 226px;
+  }
+}

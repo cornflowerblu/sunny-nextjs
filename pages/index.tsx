@@ -19,9 +19,12 @@ const Index: NextPageWithLayout = ({
     seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes
       .seasons.data.length
 
-  const showIds = shows.cms_.shows.data.map((show: Show) => show.id)
-  let random = Math.floor(Math.random() * showIds.length + 1);
-  if (random == 0) random = random + 1;
+  const [random, setRandom] = React.useState(1)
+  useEffect(() => {
+    const showIds = shows.cms_.shows.data.map((show: Show) => show.id)
+    setRandom(Math.floor(Math.random() * showIds.length + 1))
+    if (random == 0) setRandom(random + 1)
+  })
 
   return (
     <main>
@@ -58,18 +61,23 @@ const Index: NextPageWithLayout = ({
                 <div className="col" key={show.id}>
                   <div className="card shadow-sm">
                     <div className="card-img-top">
-                      <img className={style.cardImage}
-                        src={show.attributes.thumbnail.data[0].attributes.url}
-                        alt={
-                          show.attributes.thumbnail.data[0].attributes
-                            .alternativeText
-                        }
-                        loading="eager"
-                        // height={'226px'}
-                        style={{ width: '-webkit-fill-available', borderRadius: '6px' }}
-                        // @ts-ignore
-                        fetchpriority="high"
-                      />
+                      <Link href={`/shows/${show.id}`}>
+                        <img
+                          className={style.cardImage}
+                          src={show.attributes.thumbnail.data[0].attributes.url}
+                          alt={
+                            show.attributes.thumbnail.data[0].attributes
+                              .alternativeText
+                          }
+                          loading="eager"
+                          style={{
+                            width: '-webkit-fill-available',
+                            borderRadius: '6px',
+                          }}
+                          // @ts-ignore
+                          fetchpriority="high"
+                        />
+                      </Link>
                     </div>
                     <div className="card-body">
                       <p className="card-text">{show.attributes.description}</p>
