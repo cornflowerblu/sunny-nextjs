@@ -66,7 +66,7 @@ const Index: NextPageWithLayout = ({
                         }
                         loading="eager"
                         height={'226px'}
-                        style={{ width: '-webkit-fill-available' }}
+                        style={{ width: '-webkit-fill-available', borderRadius: '6px' }}
                         // @ts-ignore
                         fetchpriority="high"
                       />
