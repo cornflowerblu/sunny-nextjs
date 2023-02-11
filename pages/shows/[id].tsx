@@ -92,17 +92,10 @@ export default function Shows({
       <Layout>
         <main className={styles.container}>
           <div className="mx-auto text-center">
-            <Link
-              className={styles.title}
-              href={`/shows/${
-                show.show?.slug === 'always-sunny' ? 'friends' : 'always-sunny'
-              }`}
-            >
-              <h1 className="display-6 pb-2">
-                {show.show?.short_name ? show.show.short_name : show.show?.name}{' '}
-                Episode Picker
-              </h1>
-            </Link>
+            <h1 className="display-6 pb-2">
+              {show.show?.short_name ? show.show.short_name : show.show?.name}{' '}
+              Episode Picker
+            </h1>
             <div className="d-flex align-items-center justify-content-center pb-2">
               <img
                 src={imageUrl}

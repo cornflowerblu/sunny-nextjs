@@ -19,6 +19,10 @@ const Index: NextPageWithLayout = ({
     seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes
       .seasons.data.length
 
+  const showIds = shows.cms_.shows.data.map((show: Show) => show.id)
+  let random = Math.floor(Math.random() * showIds.length + 1);
+  if (random == 0) random = random + 1;
+
   return (
     <main>
       <section className="py-5 text-center container">
@@ -34,7 +38,7 @@ const Index: NextPageWithLayout = ({
             <p>
               <Link
                 className="btn btn-primary my-3 py-2 mx-4"
-                href={'/shows/always-sunny'}
+                href={`/shows/${random}`}
               >
                 Watch a Random Episode of a Random Show
               </Link>
@@ -43,7 +47,7 @@ const Index: NextPageWithLayout = ({
         </div>
       </section>
 
-      <h1 className="col-lg-4 col-md-8 d-flex flex-auto justify-content-center mx-auto fw-light py-3">
+      <h1 className="col-lg-4 col-md-8 text-center mx-auto fw-light py-3">
         Trending Shows
       </h1>
       <div className="album py-5 bg-light">
@@ -61,10 +65,10 @@ const Index: NextPageWithLayout = ({
                             .alternativeText
                         }
                         loading="eager"
-                        // @ts-ignore
-                        fetchpriority="high"
                         height={'226px'}
                         style={{ width: '-webkit-fill-available' }}
+                        // @ts-ignore
+                        fetchpriority="high"
                       />
                     </div>
                     <div className="card-body">

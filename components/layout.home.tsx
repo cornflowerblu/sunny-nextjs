@@ -4,7 +4,7 @@ function HomeLayout({ children }) {
   return (
     <>
       <Head>
-        <title>Episode Selector</title>
+        <title>Episode Picker</title>
         <meta
           name="description"
           content="Putting the fun back into watching your favorite show... Who knows what episode they'll choose!"
