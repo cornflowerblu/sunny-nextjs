@@ -11,5 +11,13 @@ export interface ShowAttributes {
   updated_at: string,
   published_at: string,
   slug: string,
+  description: string,
   short_name: string,
+  thumbnail: ImageAttributes,
+}
+
+export interface ImageAttributes {
+  data: any
+  url: string,
+  alternativeText: string,
 }
