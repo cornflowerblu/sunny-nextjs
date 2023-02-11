@@ -58,14 +58,14 @@ const Index: NextPageWithLayout = ({
                 <div className="col" key={show.id}>
                   <div className="card shadow-sm">
                     <div className="card-img-top">
-                      <img
+                      <img className={style.cardImage}
                         src={show.attributes.thumbnail.data[0].attributes.url}
                         alt={
                           show.attributes.thumbnail.data[0].attributes
                             .alternativeText
                         }
                         loading="eager"
-                        height={'226px'}
+                        // height={'226px'}
                         style={{ width: '-webkit-fill-available', borderRadius: '6px' }}
                         // @ts-ignore
                         fetchpriority="high"
