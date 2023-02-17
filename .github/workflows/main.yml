@@ -13,7 +13,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5 # use the explicit version number
         with:
-          token: 
+          env: 
             ${{ secrets.NEXT_PUBLIC_CMS_REST_API }}
             ${{ secrets.NEXT_PUBLIC_HASURA_REST_API }}
           build: npm run build
