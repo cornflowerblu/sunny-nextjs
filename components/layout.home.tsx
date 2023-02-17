@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
 function HomeLayout({ children }) {
   return (
@@ -15,12 +16,12 @@ function HomeLayout({ children }) {
       <header className="p-2 border-bottom">
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a
+            <Link
               href="/"
               className="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
             >
               <h1 className="display-6 pb-2">Episode Picker</h1>
-            </a>
+            </Link>
 
             <ul className="d-flex flex-auto align-items-center nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-auto">
               <li>
