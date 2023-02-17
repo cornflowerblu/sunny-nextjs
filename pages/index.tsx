@@ -33,10 +33,10 @@ const Index: NextPageWithLayout = ({
           <div className="col-lg-6 col-md-8 mx-auto">
             <h1 className="fw-light">No More Wondering What to Watch</h1>
             <p className="lead text-muted">
-              We&apos;ll (with the help of some special guests) pick a random episode
-              of your favorite show! Now you can just sit back and relax without
-              having to decide on what to watch. If you&apos;re feeling adventerous
-              hit the button below to dive right in!
+              We&apos;ll (with the help of some special guests) pick a random
+              episode of your favorite show! Now you can just sit back and relax
+              without having to decide on what to watch. If you&apos;re feeling
+              adventerous hit the button below to dive right in!
             </p>
             <p>
               <Link
