@@ -40,7 +40,7 @@ export default function Shows({
     if (+router.query.id > 0) {
       router.push(`/shows/${show.show?.slug}`, undefined, { shallow: true })
     }
-  }, [router.query])
+  }, [router, router.query, show.show?.slug])
 
   // The main function that shuffles characters, seasons, and episodes
   const refreshPage = () => {
@@ -73,7 +73,7 @@ export default function Shows({
   useEffect(() => {
     refreshPage()
     setRefresh(true)
-  }, [router.query])
+  }, [])
 
   // Show or hide episode details
   const Details = () => {

@@ -24,7 +24,7 @@ const Index: NextPageWithLayout = ({
     const showIds = shows.cms_.shows.data.map((show: Show) => show.id)
     setRandom(Math.floor(Math.random() * showIds.length + 1))
     if (random == 0) setRandom(random + 1)
-  })
+  }, [shows.cms_.shows.data, random])
 
   return (
     <main>
