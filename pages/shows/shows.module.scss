@@ -2,6 +2,17 @@
   img {
     height: auto;
     border-radius: 12px;
+    animation: fadein 1s ease;
+    
+    @keyframes fadein { 
+      0% {
+        opacity: 0;
+      }
+    
+      100% {
+        opacity: 1;
+      }
+    }
     
       @media screen and (min-width: 320px) {    
           height: 167px;
