@@ -7,6 +7,7 @@ import { Character } from '../../types/cms/character'
 import { Season } from '../../types/cms/season'
 import { Episode } from '../../types/cms/episode'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import placeHolder from '/public/images/placeholder.png'
 import styles from './shows.module.scss'
 
 
@@ -92,6 +93,7 @@ export default function Index({ characters, seasons, episodes, show }: { charact
                 decoding="sync"
                 loading="eager"
                 // @ts-ignore
+                placeholder={placeHolder}
                 fetchpriority="high"
               />
             </div>
