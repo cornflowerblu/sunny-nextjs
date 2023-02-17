@@ -11,8 +11,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         env:
-          NEXT_PUBLIC_HASURA_REST_API: https://hasura.rurich.dev/api/rest
-          NEXT_PUBLIC_CMS_REST_API: https://cms.rurich.dev/api
+          NEXT_PUBLIC_HASURA_REST_API: $NEXT_PUBLIC_HASURA_REST_API
+          NEXT_PUBLIC_CMS_REST_API: $NEXT_PUBLIC_CMS_REST_API
         with:
           build: npm run build
           start: npm start
