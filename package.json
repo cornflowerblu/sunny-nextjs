@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pretty": "prettier --write ."
+    "pretty": "prettier --write .",
+    "cypress": "cypress open",
+    "e2e": "next build && next start & cypress run --e2e"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "18.13.0",
+    "cypress": "^12.6.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "prettier": "^2.8.4",
