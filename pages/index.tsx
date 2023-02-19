@@ -22,17 +22,17 @@ const Index: NextPageWithLayout = ({
     seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes
       .seasons.data.length
 
+  const contentBlock = (id: number) =>
+    content.cms_.webContents.data
+      .filter((content: WebContent) => content.id == id)
+      .map((content: WebContent) => content.attributes.content)
+
   const [random, setRandom] = React.useState(1)
   useEffect(() => {
     const showIds = shows.cms_.shows.data.map((show: Show) => show.id)
     setRandom(Math.floor(Math.random() * showIds.length + 1))
     if (random == 0) setRandom(random + 1)
   }, [shows.cms_.shows.data, random])
-
-  const contentBlock = (id: number) =>
-    content.cms_.webContents.data
-      .filter((content: WebContent) => content.id == id)
-      .map((content: WebContent) => content.attributes.content)
 
   return (
     <main>
