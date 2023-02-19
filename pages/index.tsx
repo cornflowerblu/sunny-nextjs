@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React, { ReactElement, useEffect } from 'react'
 import Layout from '../components/layout'
 import HomeLayout from '../components/layout.home'
+import { WebContent } from '../types/cms/content'
 import { Season } from '../types/cms/season'
 import { Show } from '../types/cms/show'
 import style from './index.module.scss'
@@ -11,9 +12,11 @@ import { NextPageWithLayout } from './_app'
 const Index: NextPageWithLayout = ({
   shows,
   seasons,
+  content,
 }: {
   shows: Show
   seasons: Season
+  content: WebContent
 }) => {
   const seasonCount = (showId: number) =>
     seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes
@@ -26,18 +29,18 @@ const Index: NextPageWithLayout = ({
     if (random == 0) setRandom(random + 1)
   }, [shows.cms_.shows.data, random])
 
+  const contentBlock = (id: number) =>
+    content.cms_.webContents.data
+      .filter((content: WebContent) => content.id == id)
+      .map((content: WebContent) => content.attributes.content)
+
   return (
     <main>
       <section className="py-5 text-center container">
         <div className="row py-lg-5">
           <div className="col-lg-6 col-md-8 mx-auto">
-            <h1 className="fw-light">No More Wondering What to Watch</h1>
-            <p className="lead text-muted">
-              We&apos;ll (with the help of some special guests) pick a random
-              episode of your favorite show! Now you can just sit back and relax
-              without having to decide on what to watch. If you&apos;re feeling
-              adventerous hit the button below to dive right in!
-            </p>
+            <h1 className="fw-light">{contentBlock(1)}</h1>
+            <p className="lead text-muted">{contentBlock(2)}</p>
             <p>
               <Link
                 className="btn btn-primary my-3 py-2 mx-4"
@@ -118,8 +121,12 @@ export const getStaticProps: GetStaticProps = async () => {
     await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/shows/seasons`)
   ).json()
 
+  const content: Array<WebContent> = await (
+    await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v1/content`)
+  ).json()
+
   return {
-    props: { shows, seasons },
+    props: { shows, seasons, content },
   }
 }
 
