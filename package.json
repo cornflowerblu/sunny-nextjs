@@ -9,7 +9,7 @@
     "lint": "next lint",
     "pretty": "prettier --write .",
     "cypress": "cypress open",
-    "e2e": "next build && next start & cypress run --e2e"
+    "e2e": "next build && next start && sleep & cypress run --e2e"
   },
   "keywords": [],
   "author": "",

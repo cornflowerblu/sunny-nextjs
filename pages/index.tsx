@@ -7,6 +7,7 @@ import { WebContent } from '../types/cms/content'
 import { Season } from '../types/cms/season'
 import { Show } from '../types/cms/show'
 import style from './index.module.scss'
+import { contentBlock } from '../components/utils/content'
 import { NextPageWithLayout } from './_app'
 
 const Index: NextPageWithLayout = ({
@@ -22,11 +23,6 @@ const Index: NextPageWithLayout = ({
     seasons?.cms_.shows.data.find((show: Show) => show.id == showId).attributes
       .seasons.data.length
 
-  const contentBlock = (id: number) =>
-    content.cms_.webContents.data
-      .filter((content: WebContent) => content.id == id)
-      .map((content: WebContent) => content.attributes.content)
-
   const [random, setRandom] = React.useState(1)
   useEffect(() => {
     const showIds = shows.cms_.shows.data.map((show: Show) => show.id)
@@ -39,8 +35,8 @@ const Index: NextPageWithLayout = ({
       <section className="py-5 text-center container">
         <div className="row py-lg-5">
           <div className="col-lg-6 col-md-8 mx-auto">
-            <h1 className="fw-light">{contentBlock(1)}</h1>
-            <p className="lead text-muted">{contentBlock(2)}</p>
+            <h1 className="fw-light">{contentBlock(1, { ...content })}</h1>
+            <p className="lead text-muted">{contentBlock(2, { ...content })}</p>
             <p>
               <Link
                 className="btn btn-primary my-3 py-2 mx-4"
