@@ -84,8 +84,10 @@ export default function Shows({
       </div>
     )
   }
+
   const renderDetails = () =>
     showDetails ? setShowDetails(false) : setShowDetails(true)
+
   if (isRefreshed) {
     return (
       <Layout>
