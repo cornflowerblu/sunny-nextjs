@@ -116,7 +116,7 @@ export function Autocomplete(
       >
         <div className="aa-InputWrapperPrefix">
           <label className="aa-Label" {...autocomplete.getLabelProps({})}>
-            <button className="aa-SubmitButton" type="submit" title="Submit">
+            <button className="aa-SubmitButton" disabled>
               <SearchIcon />
             </button>
           </label>

@@ -7,7 +7,7 @@ export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
         fill="none"
         fillRule="evenodd"
-        stroke="currentColor"
+        stroke="grey"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.4"
