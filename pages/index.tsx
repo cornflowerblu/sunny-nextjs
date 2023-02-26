@@ -35,14 +35,16 @@ const Index: NextPageWithLayout = ({
       <section className="py-5 text-center container">
         <div className="row py-lg-5">
           <div className="col-lg-6 col-md-8 mx-auto">
-            <h1 className="fw-light">{contentBlock(1, { ...content })}</h1>
+            <span className={style.h1wrapper}>
+              <h1 className="fw-light">{contentBlock(1, { ...content })}</h1>
+            </span>
             <p className="lead text-muted">{contentBlock(2, { ...content })}</p>
             <p>
               <Link
                 className="btn btn-primary my-3 py-2 mx-4"
                 href={`/shows/${random}`}
               >
-                Watch a Random Episode of a Random Show
+                Watch a Random Episode of a Random&nbsp;Show
               </Link>
             </p>
           </div>
