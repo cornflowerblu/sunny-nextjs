@@ -170,7 +170,7 @@ export function Autocomplete(
                                     <Highlight hit={item} attribute="name" />
                                   </div>
                                   <div className="aa-ItemContentDescription">
-                                    <strong>{item.show}:&nbsp;</strong>Season&nbsp;{item.season},&nbsp;Episode {item.episode}<br /><br />
+                                    <strong>{item.show}: </strong>Season&nbsp;{item.season},&nbsp;Episode {item.episode}<br /><br />
                                     {item.description}<hr />
                                   </div>
                                 </div>
