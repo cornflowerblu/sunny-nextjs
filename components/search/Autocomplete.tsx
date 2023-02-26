@@ -137,6 +137,7 @@ export function Autocomplete(
 
       {autocompleteState.isOpen && (
         <div
+          style={{ zIndex: 3 }}
           ref={panelRef}
           className={[
             'aa-Panel',

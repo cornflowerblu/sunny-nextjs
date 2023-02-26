@@ -54,7 +54,7 @@ const Index: NextPageWithLayout = ({
       <h1 className="col-lg-4 col-md-8 text-center mx-auto fw-light py-3 z-0">
         Trending Shows
       </h1>
-      <div className="album py-5 bg-light" style={{ position: 'relative', zIndex: -1 }}>
+      <div className="album py-5 bg-light">
         <div className={style.container}>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mx-4">
             {shows?.cms_.shows.data.map((show: Show) => {
