@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Search from './basic-search'
 import { Autocomplete } from './search/Autocomplete'
 
 function HomeLayout({ children }) {
@@ -48,6 +49,7 @@ function HomeLayout({ children }) {
             </ul>
             <div>
               <Autocomplete />
+              {/* <Search /> */}
             </div>
           </div>
         </div>

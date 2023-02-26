@@ -23,10 +23,13 @@
     "next": "^13.1.6",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-instantsearch-dom": "^6.39.0",
+    "react-instantsearch-hooks-web": "^6.40.1"
   },
   "devDependencies": {
     "@types/node": "18.13.0",
+    "@types/react-instantsearch-dom": "^6.12.3",
     "cypress": "^12.6.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
