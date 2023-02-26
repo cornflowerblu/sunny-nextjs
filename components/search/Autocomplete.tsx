@@ -24,7 +24,7 @@ type AutocompleteItem = Hit<{
   show: string;
   season: string;
   episode: string;
-  // url: string;
+  objectID: number;
 }>;
 
 export function Autocomplete(
@@ -71,7 +71,7 @@ export function Autocomplete(
                 });
               },
               // getItemUrl({ item }) {
-              //   return item.name;
+              //   return item.objectID;
               // },
             },
           ];
