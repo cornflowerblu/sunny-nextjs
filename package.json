@@ -15,6 +15,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.8.2",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.8.2",
+    "@algolia/autocomplete-theme-classic": "^1.8.2",
+    "algoliasearch": "^4.14.3",
     "cookie": "^0.5.0",
     "next": "^13.1.6",
     "react": "^18.2.0",
