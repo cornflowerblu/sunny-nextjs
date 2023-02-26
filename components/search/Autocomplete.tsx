@@ -120,13 +120,12 @@ export function Autocomplete(
               <SearchIcon />
             </button>
           </label>
-          {autocompleteState.query ? null : <span className='text-muted'>Type some keywords...</span>}
         </div>
         <div className="aa-InputWrapper">
           <input
             className="aa-Input"
             ref={inputRef}
-            {...autocomplete.getInputProps({ inputElement: inputRef.current })}
+            {...autocomplete.getInputProps({ inputElement: inputRef.current, placeholder: "Search Everything" })}
           />
         </div>
         <div className="aa-InputWrapperSuffix">
@@ -175,7 +174,7 @@ export function Autocomplete(
                                   </div>
                                 </div>
                               </div>
-                              <div className="aa-ItemActions">
+                              {/* <div className="aa-ItemActions">
                                 <button
                                   className="aa-ItemActionButton aa-DesktopOnly aa-ActiveOnly"
                                   type="button"
@@ -186,7 +185,7 @@ export function Autocomplete(
                                     <path d="M18.984 6.984h2.016v6h-15.188l3.609 3.609-1.406 1.406-6-6 6-6 1.406 1.406-3.609 3.609h13.172v-4.031z" />
                                   </svg>
                                 </button>
-                              </div>
+                              </div> */}
                             </div>
                           </li>
                         );

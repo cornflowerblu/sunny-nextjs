@@ -47,7 +47,7 @@ function HomeLayout({ children }) {
                 </a>
               </li>
             </ul>
-            <div>
+            <div className='d-flex flex-auto'>
               <Autocomplete />
               {/* <Search /> */}
             </div>
