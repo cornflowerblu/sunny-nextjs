@@ -120,6 +120,7 @@ export function Autocomplete(
               <SearchIcon />
             </button>
           </label>
+          {autocompleteState.query ? null : <span className='text-muted'>Type some keywords...</span>}
         </div>
         <div className="aa-InputWrapper">
           <input
