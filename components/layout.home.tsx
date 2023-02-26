@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Search from './basic-search'
+import { Autocomplete } from './search/Autocomplete'
 
 function HomeLayout({ children }) {
   return (
@@ -45,19 +47,10 @@ function HomeLayout({ children }) {
                 </a>
               </li>
             </ul>
-
-            <form
-              className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
-              style={{ width: '18rem' }}
-              role="search"
-            >
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Search..."
-                aria-label="Search"
-              />
-            </form>
+            <div className='d-flex flex-auto'>
+              <Autocomplete />
+              {/* <Search /> */}
+            </div>
           </div>
         </div>
       </header>
