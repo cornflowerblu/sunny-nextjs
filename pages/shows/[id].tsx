@@ -8,6 +8,7 @@ import { Season } from '../../types/cms/season'
 import { Episode } from '../../types/cms/episode'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import styles from './shows.module.scss'
+import GoHomeFooter from '../../components/go-home-footer'
 
 export default function Shows({
   characters,
@@ -40,6 +41,8 @@ export default function Shows({
     if (+router.query.id > 0) {
       router.push(`/shows/${show.show?.slug}`, undefined, { shallow: true })
     }
+
+    if (router.pathname === '/shows/undefined') router.push('/404')
   }, [router, router.query, show.show?.slug])
 
   // The main function that shuffles characters, seasons, and episodes
@@ -130,13 +133,7 @@ export default function Shows({
             </div>
           </div>
         </main>
-        <footer className="text-muted py-5">
-          <p className="d-flex flex-auto justify-content-center mb-1 mx-auto">
-            <Link className="text-muted py-5 text-decoration-none" href={'/'}>
-              Back to home
-            </Link>
-          </p>
-        </footer>
+        <GoHomeFooter />
       </Layout>
     )
   }

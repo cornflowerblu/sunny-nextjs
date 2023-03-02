@@ -6,7 +6,7 @@ import HomeLayout from '../components/layout.home'
 import { WebContent } from '../types/cms/content'
 import { Season } from '../types/cms/season'
 import { Show } from '../types/cms/show'
-import style from './index.module.scss'
+import style from './styles/index.module.scss'
 import { contentBlock } from '../components/utils/content'
 import { NextPageWithLayout } from './_app'
 
