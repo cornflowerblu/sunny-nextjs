@@ -41,8 +41,6 @@ export default function Shows({
     if (+router.query.id > 0) {
       router.push(`/shows/${show.show?.slug}`, undefined, { shallow: true })
     }
-
-    if (router.pathname === '/shows/undefined') router.push('/404')
   }, [router, router.query, show.show?.slug])
 
   // The main function that shuffles characters, seasons, and episodes
@@ -67,6 +65,7 @@ export default function Shows({
       setEpisodeTitle(episodeArr.name)
       setDetails(episodeArr.description)
     } catch (error) {
+      router.push('/not-found')
       return console.log(error)
     }
   }
