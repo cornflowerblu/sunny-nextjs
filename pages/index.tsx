@@ -5,7 +5,7 @@ import React from 'react'
 export default function Index() {
   return (
     <div>
-      <h1>Hi. I don't do anything...</h1>
+      <h1>Hi. I don&apos;t do anything...</h1>
     </div>
   )
 }
