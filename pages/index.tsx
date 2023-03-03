@@ -102,7 +102,7 @@ const Index: NextPageWithLayout = ({
                   </div>
                 </div>
               )
-            })}
+            }).reverse()}
           </div>
         </div>
       </div>
