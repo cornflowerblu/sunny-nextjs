@@ -2,6 +2,7 @@ on:
   push:
     branches-ignore:
       - main
+      - homepage
 
 jobs:
   cypress-run:
