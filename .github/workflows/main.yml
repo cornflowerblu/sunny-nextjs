@@ -39,4 +39,4 @@ jobs:
         run: vercel link --scope roger-urich --token ${{ secrets.VERCEL_TOKEN }} --yes
       
       - name: Build & Deploy to Vercel
-        run: vercel
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }}
