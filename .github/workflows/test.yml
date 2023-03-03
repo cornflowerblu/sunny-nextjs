@@ -1,5 +1,5 @@
 on:
-  push: 
+  push:
     branches-ignore:
       - main
       - content
@@ -20,7 +20,7 @@ jobs:
         with:
           build: npm run build
           start: npm start
-  
+
   build-deploy:
     name: Build & Deploy
     needs: cypress-run
@@ -28,12 +28,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: Install Vercel
         run: npm i -g vercel
-      
+
       - name: Link to Vercel project with Token & Scope
         run: vercel link --scope roger-urich --token ${{ secrets.VERCEL_TOKEN }} --yes
-      
+
       - name: Build & Deploy to Vercel
-        run: vercel --token ${{ secrets.VERCEL_TOKEN }}          
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }}

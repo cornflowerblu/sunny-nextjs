@@ -28,4 +28,4 @@ describe('Site Loads Normally', () => {
   })
 })
 
-export { }
+export {}
