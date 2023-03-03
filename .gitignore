@@ -8,7 +8,6 @@ lerna-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-*.mp4
 
 # Runtime data
 pids
@@ -88,4 +87,3 @@ prod.env
 
 # DynamoDB Local files
 .dynamodb/
-.vercel
