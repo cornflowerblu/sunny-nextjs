@@ -1,7 +1,8 @@
 on:
-  push:
+  push: 
     branches-ignore:
       - main
+      - content
 
 jobs:
   cypress-run:
