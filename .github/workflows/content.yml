@@ -1,7 +1,4 @@
-on:
-  repository_dispatch:
-    types:
-      - workflow_dispatch
+on: [workflow_dispatch, repository_dispatch ]
 
 jobs:
   cypress-run:
