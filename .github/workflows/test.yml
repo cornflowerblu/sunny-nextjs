@@ -10,9 +10,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Install Deps
-        run: npm ci --no-audit
       
       - name: Lint
         run: npm run lint
@@ -23,5 +20,6 @@ jobs:
           NEXT_PUBLIC_HASURA_REST_API: ${{ secrets.NEXT_PUBLIC_HASURA_REST_API }}
           NEXT_PUBLIC_CMS_REST_API: ${{ secrets.NEXT_PUBLIC_CMS_REST_API }}
         with:
+          lint: npm run lint
           build: npm run build
           start: npm start
