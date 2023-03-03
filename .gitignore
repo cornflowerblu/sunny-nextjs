@@ -88,3 +88,4 @@ prod.env
 
 # DynamoDB Local files
 .dynamodb/
+.vercel
