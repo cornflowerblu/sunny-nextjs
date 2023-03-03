@@ -2,33 +2,33 @@ import {
   AutocompleteOptions,
   AutocompleteState,
   createAutocomplete,
-} from '@algolia/autocomplete-core';
-import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia';
-import { Hit } from '@algolia/client-search';
-import algoliasearch from 'algoliasearch/lite';
-import '@algolia/autocomplete-theme-classic';
-import React from 'react';
+} from '@algolia/autocomplete-core'
+import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia'
+import { Hit } from '@algolia/client-search'
+import algoliasearch from 'algoliasearch/lite'
+import '@algolia/autocomplete-theme-classic'
+import React from 'react'
 
-import { ClearIcon } from './ClearIcon';
-import { Highlight } from './Highlight';
-import { SearchIcon } from './SearchIcon';
+import { ClearIcon } from './ClearIcon'
+import { Highlight } from './Highlight'
+import { SearchIcon } from './SearchIcon'
 
 const searchClient = algoliasearch(
   'RT84MN73PG',
-  'c9e2cc86a9b1a6c0ac5ca4e3536b6d24'
-);
+  'c9e2cc86a9b1a6c0ac5ca4e3536b6d24',
+)
 
 type AutocompleteItem = Hit<{
-  description: string;
-  name: string;
-  show: string;
-  season: string;
-  episode: string;
-  objectID: number;
-}>;
+  description: string
+  name: string
+  show: string
+  season: string
+  episode: string
+  objectID: number
+}>
 
 export function Autocomplete(
-  props: Partial<AutocompleteOptions<AutocompleteItem>>
+  props: Partial<AutocompleteOptions<AutocompleteItem>>,
 ) {
   const [autocompleteState, setAutocompleteState] = React.useState<
     AutocompleteState<AutocompleteItem>
@@ -40,7 +40,7 @@ export function Autocomplete(
     query: '',
     activeItemId: null,
     status: 'idle',
-  });
+  })
   const autocomplete = React.useMemo(
     () =>
       createAutocomplete<
@@ -50,7 +50,7 @@ export function Autocomplete(
         React.KeyboardEvent
       >({
         onStateChange({ state }) {
-          setAutocompleteState(state);
+          setAutocompleteState(state)
         },
         getSources() {
           return [
@@ -68,44 +68,44 @@ export function Autocomplete(
                       },
                     },
                   ],
-                });
+                })
               },
               // getItemUrl({ item }) {
               //   return item.objectID;
               // },
             },
-          ];
+          ]
         },
         ...props,
       }),
-    [props]
-  );
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const formRef = React.useRef<HTMLFormElement>(null);
-  const panelRef = React.useRef<HTMLDivElement>(null);
-  const { getEnvironmentProps } = autocomplete;
+    [props],
+  )
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const formRef = React.useRef<HTMLFormElement>(null)
+  const panelRef = React.useRef<HTMLDivElement>(null)
+  const { getEnvironmentProps } = autocomplete
 
   React.useEffect(() => {
     if (!formRef.current || !panelRef.current || !inputRef.current) {
-      return undefined;
+      return undefined
     }
 
     const { onTouchStart, onTouchMove, onMouseDown } = getEnvironmentProps({
       formElement: formRef.current,
       inputElement: inputRef.current,
       panelElement: panelRef.current,
-    });
+    })
 
-    window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('touchstart', onTouchStart);
-    window.addEventListener('touchmove', onTouchMove);
+    window.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('touchstart', onTouchStart)
+    window.addEventListener('touchmove', onTouchMove)
 
     return () => {
-      window.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchmove', onTouchMove);
-    };
-  }, [getEnvironmentProps, autocompleteState.isOpen]);
+      window.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+    }
+  }, [getEnvironmentProps, autocompleteState.isOpen])
 
   return (
     <div className="aa-Autocomplete" {...autocomplete.getRootProps({})}>
@@ -125,7 +125,10 @@ export function Autocomplete(
           <input
             className="aa-Input"
             ref={inputRef}
-            {...autocomplete.getInputProps({ inputElement: inputRef.current, placeholder: "Search Everything" })}
+            {...autocomplete.getInputProps({
+              inputElement: inputRef.current,
+              placeholder: 'Search Everything',
+            })}
           />
         </div>
         <div className="aa-InputWrapperSuffix">
@@ -150,7 +153,7 @@ export function Autocomplete(
         >
           <div className="aa-PanelLayout aa-Panel--scrollable">
             {autocompleteState.collections.map((collection, index) => {
-              const { source, items } = collection;
+              const { source, items } = collection
 
               return (
                 <section key={`source-${index}`} className="aa-Source">
@@ -170,8 +173,12 @@ export function Autocomplete(
                                     <Highlight hit={item} attribute="name" />
                                   </div>
                                   <div className="aa-ItemContentDescription">
-                                    <strong>{item.show}: </strong>Season&nbsp;{item.season},&nbsp;Episode {item.episode}<br /><br />
-                                    {item.description}<hr />
+                                    <strong>{item.show}: </strong>Season&nbsp;
+                                    {item.season},&nbsp;Episode {item.episode}
+                                    <br />
+                                    <br />
+                                    {item.description}
+                                    <hr />
                                   </div>
                                 </div>
                               </div>
@@ -189,16 +196,16 @@ export function Autocomplete(
                               </div> */}
                             </div>
                           </li>
-                        );
+                        )
                       })}
                     </ul>
                   )}
                 </section>
-              );
+              )
             })}
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }
