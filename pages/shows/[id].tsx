@@ -8,7 +8,6 @@ import { Season } from '../../types/cms/season'
 import { Episode } from '../../types/cms/episode'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import styles from './shows.module.scss'
-import GoHomeFooter from '../../components/go-home-footer'
 
 export default function Shows({
   characters,
@@ -132,7 +131,6 @@ export default function Shows({
             </div>
           </div>
         </main>
-        <GoHomeFooter />
       </Layout>
     )
   }
