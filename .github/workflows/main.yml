@@ -15,15 +15,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Lint & Test
+      - name: Cypress run
         uses: cypress-io/github-action@v5
         env:
           NEXT_PUBLIC_HASURA_REST_API: ${{ secrets.NEXT_PUBLIC_HASURA_REST_API }}
           NEXT_PUBLIC_CMS_REST_API: ${{ secrets.NEXT_PUBLIC_CMS_REST_API }}
         with:
-          lint: npm run lint
           build: npm run build
           start: npm start
+      
+      - name: Lint
+        run: npm run lint          
   
   build-deploy:
     name: Build & Deploy
