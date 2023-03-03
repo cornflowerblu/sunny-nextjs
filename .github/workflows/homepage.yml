@@ -1,7 +1,4 @@
 on:
-  push:
-    branches:
-      - homepage
   repository_dispatch:
     types:
       - webhook      
@@ -12,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: homepage
     - uses: actions/cache@v3
       with:
         path: |
