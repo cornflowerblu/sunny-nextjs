@@ -1,7 +1,4 @@
-on:
-  push:
-    branches-ignore:
-      - main
+on: workflow_dispatch
 
 jobs:
   cypress-run:
