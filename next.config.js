@@ -2,13 +2,7 @@ const path = require('path')
 
 module.exports = {
   async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/shows/1',
-        permanent: true,
-      },
-    ]
+    return []
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'public/styles')],
