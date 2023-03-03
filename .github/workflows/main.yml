@@ -1,4 +1,11 @@
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.env'
+      - '.env.example'
+      - '.editorconfig'
 
 jobs:
   cypress-run:
