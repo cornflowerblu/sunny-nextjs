@@ -12,15 +12,14 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
   const showsData = await (
     await fetch(`${process.env.NEXT_PUBLIC_HASURA_REST_API}/v2/shows`)
   ).json()
-
-  if (!showsData.cms_.shows.data.id) {
-    console.log('No show found')
-    return NextResponse.redirect(new URL('/not-found', request.url))
-  }
-
   const show: Show = showsData.cms_.shows.data.find(
     (show: Show) => show.attributes.slug === path,
   )
+
+  if (!show) {
+    console.error('No show found')
+    return NextResponse.redirect(new URL('/not-found', request.url))
+  }
 
   return NextResponse.rewrite(new URL(`/shows/${show.id}`, request.url))
 }
