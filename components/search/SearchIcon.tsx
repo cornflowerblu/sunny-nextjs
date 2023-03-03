@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -13,5 +13,5 @@ export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
         strokeWidth="1.4"
       />
     </svg>
-  );
+  )
 }

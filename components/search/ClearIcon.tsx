@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export function ClearIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -15,5 +15,5 @@ export function ClearIcon(props: React.SVGProps<SVGSVGElement>) {
         clipRule="evenodd"
       />
     </svg>
-  );
+  )
 }
