@@ -1,16 +1,16 @@
-import { Season } from "./season"
+import { Season } from './season'
 
 export interface Episode {
   cms_: any
-  id: number,
+  id: number
   attributes: EpisodeAttributes
 }
 
 export interface EpisodeAttributes {
-  name: string,
-  description: string,
-  episode_number: number,
-  created_at: string,
-  updated_at: string,
-  season: Season,
+  name: string
+  description: string
+  episode_number: number
+  created_at: string
+  updated_at: string
+  season: Season
 }

@@ -1,20 +1,20 @@
 export interface Character {
   cms_: any
-  id: number,
+  id: number
   attributes: CharacterAttributes
 }
 
 export interface CharacterAttributes {
-  first_name: string,
-  last_name: string,
-  created_at: string,
-  updated_at: string,
+  first_name: string
+  last_name: string
+  created_at: string
+  updated_at: string
   image: Image
 }
 
 export interface Image {
   data: {
-    id: number,
+    id: number
     attributes: ImageAttributes
   }
 }
@@ -39,7 +39,7 @@ export interface ImageAttributes {
 }
 
 export interface Formats {
-  formatType: string,
+  formatType: string
   ext?: string
   url: string
   hash?: string
