@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
 import styles from './styles/notfound.module.scss'
 import Image from 'next/image'
 import GoHomeFooter from '../components/go-home-footer'
 
 const NotFoundPage = () => {
-  const [results, setResults] = useState([])
-  const router = useRouter()
   return (
     <div className={styles.container}>
       <h1 className="fw-light">Whoops!</h1>
